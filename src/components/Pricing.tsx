@@ -2,7 +2,7 @@ import { IS_LIVE, PADDLE_CHECKOUT_URL, PRICE } from '../config';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 
 const features = [
-  'All current features',
+  'All features at launch',
   'All 1.x updates included',
   'No subscription required',
   'Works offline after activation',
@@ -42,7 +42,7 @@ export default function Pricing() {
                 <span className="text-5xl font-semibold text-brand-900">{PRICE}</span>
               </div>
               <p className="mt-2 text-sm text-neutral-500">
-                Pay once, own forever
+                Pay once. Keep it open.
               </p>
             </div>
 
