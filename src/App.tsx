@@ -2,6 +2,7 @@ import Header from './components/Header';
 import Hero from './components/Hero';
 import HowItWorks from './components/HowItWorks';
 import Orbs from './components/Orbs';
+import Control from './components/Control';
 import Pricing from './components/Pricing';
 import Trust from './components/Trust';
 import NotifyForm from './components/NotifyForm';
@@ -15,6 +16,7 @@ function App() {
         <Hero />
         <HowItWorks />
         <Orbs />
+        <Control />
         <Pricing />
         <Trust />
         <NotifyForm />
