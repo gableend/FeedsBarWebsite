@@ -128,75 +128,123 @@
 
 /* =========================
    Pricing signal animation
-   Works with Pricing.tsx (track + line + pulse)
+   Uses CSS var: --pricing-signal-end (px from left of viewport)
    ========================= */
 
 .pricing-signal-track {
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: 0;
   width: 100vw;
   height: 2px;
-  transform: translate(-50%, -50%);
-  overflow: visible;
+  transform: translateY(-50%);
   pointer-events: none;
 }
 
+/* The streak behind the card */
 .pricing-signal-line {
-  position: relative;
-  left: -100%;
-  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
   height: 2px;
+  width: 0;
   background: linear-gradient(
     90deg,
     transparent,
     rgba(59, 130, 246, 0.35),
+    rgba(59, 130, 246, 0.65),
     transparent
   );
-  filter: blur(0.3px);
+  filter: blur(0.25px);
+  opacity: 0.9;
 }
 
-.pricing-signal-pulse {
+/* The “head” (visible) */
+.pricing-signal-head {
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: 0;
   width: 10px;
   height: 10px;
   transform: translate(-50%, -50%);
   border-radius: 9999px;
-  background: rgba(59, 130, 246, 0.35);
+  background: rgba(59, 130, 246, 0.9);
+  box-shadow:
+    0 0 0 6px rgba(59, 130, 246, 0.15),
+    0 0 18px rgba(59, 130, 246, 0.35);
   opacity: 0;
-  pointer-events: none;
+}
+
+/* Pulse that resolves where the head stops */
+.pricing-signal-pulse {
+  position: absolute;
+  top: 50%;
+  left: var(--pricing-signal-end);
+  width: 10px;
+  height: 10px;
+  transform: translate(-50%, -50%);
+  border-radius: 9999px;
+  background: rgba(59, 130, 246, 0.65);
+  opacity: 0;
 }
 
 /* Animations only when motion is allowed */
 @media (prefers-reduced-motion: no-preference) {
   .pricing-signal-line {
-    animation: pricingSignalSweep 2.4s ease-out forwards;
+    animation: pricingLineSweep 2.4s ease-out forwards;
+  }
+
+  .pricing-signal-head {
+    animation: pricingHeadMove 2.4s ease-out forwards;
   }
 
   .pricing-signal-pulse {
-    animation: pricingSignalPulse 1.2s ease-out forwards;
+    animation: pricingPulse 1.3s ease-out forwards;
     animation-delay: 2.05s;
   }
 }
 
-@keyframes pricingSignalSweep {
+@keyframes pricingLineSweep {
+  from {
+    width: 0;
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.95;
+  }
   to {
-    left: 0;
+    width: var(--pricing-signal-end);
+    opacity: 0.85;
   }
 }
 
-@keyframes pricingSignalPulse {
+@keyframes pricingHeadMove {
+  0% {
+    left: 0;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    left: var(--pricing-signal-end);
+    opacity: 1;
+  }
+}
+
+@keyframes pricingPulse {
   0% {
     opacity: 0;
-    transform: translate(-50%, -50%) scale(0.6);
+    transform: translate(-50%, -50%) scale(0.7);
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.35);
   }
-  30% {
-    opacity: 0.6;
+  35% {
+    opacity: 0.7;
   }
   100% {
     opacity: 0;
     transform: translate(-50%, -50%) scale(4);
+    box-shadow: 0 0 0 32px rgba(59, 130, 246, 0);
   }
 }
+
