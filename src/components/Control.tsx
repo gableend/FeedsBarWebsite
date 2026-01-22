@@ -1,6 +1,6 @@
 import { useScrollAnimation } from "../hooks/useScrollAnimation";
 
-export default function SourceControl() {
+export default function Control() {
   const { ref: sectionRef, isVisible } = useScrollAnimation<HTMLElement>();
 
   return (
