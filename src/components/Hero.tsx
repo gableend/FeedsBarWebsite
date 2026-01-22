@@ -7,9 +7,12 @@ export default function Hero() {
             Stay informed without being interrupted.
           </h1>
 
-          <p className="mt-6 text-lg text-brand-700 max-w-2xl">
-            FeedsBar brings high-signal headlines to your Mac desktop. Quietly. Continuously.
-          </p>
+        <p className="mt-4 max-w-xl text-lg text-neutral-700">
+          FeedsBar brings high-signal headlines to your Mac desktop. Quietly. Continuously.
+        </p>
+
+<div className="mt-8 px-1">
+  <div className="flex flex-wrap gap-3">
           <div className="mt-7 flex gap-3 overflow-x-auto whitespace-nowrap pb-1">
             <span className="inline-flex shrink-0 items-center rounded-full border border-brand-200 bg-white px-4 py-2 text-sm text-brand-700">
               Ambient awareness, not alerts
@@ -21,7 +24,8 @@ export default function Hero() {
               Topic Orbs that reflect what’s moving
             </span>
           </div>
-
+  </div>
+</div>
           {/* CTAs */}
           <div className="mt-10 flex items-center gap-6">
             <a href="#notify" className="btn-primary">
