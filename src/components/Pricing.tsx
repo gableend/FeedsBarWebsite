@@ -24,11 +24,12 @@ export default function Pricing() {
       className="relative py-20 lg:py-28 bg-gray-50 overflow-hidden"
       ref={sectionRef}
     >
-      {/* Signal animation layer */}
+      {/* Full-width signal line (viewport width) */}
       {isVisible && (
-        <div className="pointer-events-none absolute inset-0">
-          <div className="pricing-signal-line" />
-          <div className="pricing-signal-pulse" />
+        <div className="pointer-events-none absolute inset-0 overflow-visible">
+          <div className="pricing-signal-track">
+            <div className="pricing-signal-line" />
+          </div>
         </div>
       )}
 
@@ -53,6 +54,13 @@ export default function Pricing() {
               ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-8 scale-95'}
             `}
           >
+            {/* Pulse anchored to the pricing card */}
+            {isVisible && (
+              <div className="pointer-events-none absolute inset-0">
+                <div className="pricing-signal-pulse" />
+              </div>
+            )}
+
             {/* Price */}
             <div className="text-center">
               <span className="text-sm font-medium text-neutral-500 uppercase tracking-wider">
