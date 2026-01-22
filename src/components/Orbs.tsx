@@ -1,216 +1,211 @@
-import { useScrollAnimation } from "../hooks/useScrollAnimation";
+import { useScrollAnimation } from '../hooks/useScrollAnimation';
 
-function OrbsInlineIllustration() {
-  // Palette
-  const colors = {
-    news: "#F59E0B", // amber
-    trends: "#10B981", // emerald
-    science: "#8B5CF6", // violet
-    sport: "#EF4444", // red
-    ai: "#3B82F6", // blue
-    business: "#94A3B8", // slate
-  };
+type Orb = {
+  label: string;
+  color: string; // hex
+  words: [string, string, string];
+};
 
-  const tiles = [
-    { label: "NEWS", k: ["ELECTION", "BUDGET", "STRIKE"], c: colors.news },
-    { label: "TRENDS", k: ["CREATORS", "SHORTS", "SHIFTS"], c: colors.trends },
-    { label: "SCIENCE", k: ["SPACE", "MOON", "LANDER"], c: colors.science },
-    { label: "SPORT", k: ["TITLE", "RACE", "HEATS"], c: colors.sport },
-    { label: "AI & RESEARCH", k: ["MODELS", "BENCH", "SHIFT"], c: colors.ai },
-    { label: "BUSINESS", k: ["EARNINGS", "RATES", "DEALS"], c: colors.business },
+const ORBS: Orb[] = [
+  { label: 'NEWS', color: '#F59E0B', words: ['ELECTION', 'BUDGET', 'STRIKE'] },
+  { label: 'TRENDS', color: '#10B981', words: ['CREATORS', 'SHORTS', 'SHIFTS'] },
+  { label: 'SCIENCE', color: '#8B5CF6', words: ['SPACE', 'MOON', 'LANDER'] },
+  { label: 'SPORT', color: '#EF4444', words: ['TITLE', 'RACE', 'HEATS'] },
+  { label: 'AI & RESEARCH', color: '#3B82F6', words: ['MODELS', 'BENCH', 'SHIFT'] },
+  { label: 'BUSINESS', color: '#94A3B8', words: ['EARNINGS', 'RATES', 'DEALS'] },
+];
+
+function OrbsInlineSVG() {
+  // Layout tuned to avoid cropping and give the black area more breathing room.
+  // viewBox is wide so it scales nicely in responsive containers.
+  const W = 960;
+  const H = 560;
+
+  const outerR = 36;
+
+  const topPad = 42;
+  const sidePad = 44;
+
+  const blackH = 330; // larger black area as requested
+  const whiteY = blackH - 16;
+  const whiteH = H - whiteY;
+
+  const cardW = 270;
+  const cardH = 132; // taller cards
+  const gapX = 44;
+  const gapY = 32;
+
+  const startX = sidePad;
+  const startY = topPad;
+
+  const positions = [
+    { x: startX + 0 * (cardW + gapX), y: startY + 0 * (cardH + gapY) },
+    { x: startX + 1 * (cardW + gapX), y: startY + 0 * (cardH + gapY) },
+    { x: startX + 2 * (cardW + gapX), y: startY + 0 * (cardH + gapY) },
+
+    { x: startX + 0 * (cardW + gapX), y: startY + 1 * (cardH + gapY) },
+    { x: startX + 1 * (cardW + gapX), y: startY + 1 * (cardH + gapY) },
+    { x: startX + 2 * (cardW + gapX), y: startY + 1 * (cardH + gapY) },
   ];
-
-  // Card geometry
-  const cardX = 20;
-  const cardY = 20;
-  const cardW = 820;
-  const cardH = 420;
-  const r = 26;
-
-  // Make the black area larger
-  const topH = 320; // was ~210
-  const bottomH = cardH - topH;
-
-  // Tile geometry (2 rows x 3 cols)
-  const tileW = 230;
-  const tileH = 92;
-  const gapX = 28;
-  const gapY = 22;
-
-  const originX = cardX + 38;
-  const originY = cardY + 60;
-
-  // Motion tuning
-  const cycle = 5.6; // seconds
-  const baseDelay = 0.4; // stagger per tile
 
   return (
     <svg
-      viewBox="0 0 860 460"
-      className="w-full h-auto"
+      viewBox={`0 0 ${W} ${H}`}
+      width="100%"
+      height="100%"
       role="img"
-      aria-label="A stylized preview of FeedsBar Topic Orbs"
+      aria-label="Topic Orbs preview"
+      className="block"
+      style={{ maxWidth: '100%', height: 'auto' }}
     >
       <defs>
-        <linearGradient id="bgSheen" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#0B0B0C" />
-          <stop offset="1" stopColor="#141416" />
+        <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+          <feDropShadow dx="0" dy="18" stdDeviation="18" floodOpacity="0.18" />
+        </filter>
+
+        <radialGradient id="blackGlow" cx="50%" cy="30%" r="80%">
+          <stop offset="0%" stopColor="#1B1B1D" />
+          <stop offset="60%" stopColor="#0D0D0F" />
+          <stop offset="100%" stopColor="#0A0A0B" />
+        </radialGradient>
+
+        <linearGradient id="cardFill" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0%" stopColor="#0B0B0C" />
+          <stop offset="100%" stopColor="#070708" />
         </linearGradient>
 
-        <filter id="softShadow" x="-30%" y="-30%" width="160%" height="160%">
-          <feDropShadow
-            dx="0"
-            dy="18"
-            stdDeviation="18"
-            floodColor="#000000"
-            floodOpacity="0.22"
-          />
-        </filter>
+        <linearGradient id="whiteFill" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0%" stopColor="#FFFFFF" />
+          <stop offset="100%" stopColor="#F7F7F8" />
+        </linearGradient>
 
-        <filter id="tileGlow" x="-40%" y="-40%" width="180%" height="180%">
-          <feDropShadow
-            dx="0"
-            dy="8"
-            stdDeviation="12"
-            floodColor="#000000"
-            floodOpacity="0.35"
-          />
-        </filter>
-
-        {/* Clip everything to rounded card */}
-        <clipPath id="cardClip">
-          <rect x={cardX} y={cardY} width={cardW} height={cardH} rx={r} ry={r} />
-        </clipPath>
+        <style>
+          {`
+            .orbCard { filter: drop-shadow(0px 12px 26px rgba(0,0,0,0.28)); }
+            .orbStroke { stroke: rgba(255,255,255,0.10); }
+            .orbStroke2 { stroke: rgba(255,255,255,0.16); }
+            .label { letter-spacing: 0.16em; font-weight: 600; }
+            .word { font-weight: 800; letter-spacing: 0.02em; }
+            /* Subtle “rotation” feel via staggered emphasis. */
+            @keyframes pulseWord {
+              0% { opacity: 0.55; }
+              10% { opacity: 1; }
+              30% { opacity: 0.75; }
+              100% { opacity: 0.55; }
+            }
+            .w1 { animation: pulseWord 4.8s infinite; }
+            .w2 { animation: pulseWord 4.8s infinite 1.6s; }
+            .w3 { animation: pulseWord 4.8s infinite 3.2s; }
+          `}
+        </style>
       </defs>
 
-      {/* Outer card */}
+      {/* Outer rounded container */}
       <g filter="url(#softShadow)">
-        <rect x={cardX} y={cardY} rx={r} ry={r} width={cardW} height={cardH} fill="#FFFFFF" />
-      </g>
+        <rect x="0" y="0" width={W} height={H} rx={outerR} fill="#FFFFFF" />
+        {/* Black area */}
+        <rect x="0" y="0" width={W} height={blackH} rx={outerR} fill="url(#blackGlow)" />
 
-      {/* Content clipped to card */}
-      <g clipPath="url(#cardClip)">
-        {/* Top dark area */}
-        <rect x={cardX} y={cardY} width={cardW} height={topH} fill="url(#bgSheen)" />
+        {/* Orb cards */}
+        {ORBS.map((orb, i) => {
+          const p = positions[i];
+          const x = p.x;
+          const y = p.y;
 
-        {/* Bottom white area */}
-        <rect x={cardX} y={cardY + topH} width={cardW} height={bottomH} fill="#FFFFFF" />
+          const orbCx = x + 40;
+          const orbCy = y + 44;
 
-        {/* Subtle border line between areas */}
-        <rect
-          x={cardX}
-          y={cardY + topH}
-          width={cardW}
-          height="1"
-          fill="#000000"
-          opacity="0.06"
-        />
+          const titleX = x + 78;
+          const titleY = y + 42;
 
-        {/* Inner border */}
-        <rect
-          x={cardX + 8}
-          y={cardY + 8}
-          rx={r - 6}
-          ry={r - 6}
-          width={cardW - 16}
-          height={cardH - 16}
-          fill="none"
-          stroke="#000000"
-          strokeOpacity="0.14"
-        />
-
-        {/* Tiles */}
-        {tiles.map((t, i) => {
-          const col = i % 3;
-          const row = Math.floor(i / 3);
-
-          const x = originX + col * (tileW + gapX);
-          const y = originY + row * (tileH + gapY);
-
-          const delay = (i * baseDelay) % cycle;
+          const wordX = x + 78;
+          const wordY1 = y + 78;
+          const wordY2 = y + 104;
+          const wordY3 = y + 130;
 
           return (
-            <g key={t.label} filter="url(#tileGlow)">
+            <g key={orb.label} className="orbCard">
               <rect
                 x={x}
                 y={y}
-                rx="16"
-                ry="16"
-                width={tileW}
-                height={tileH}
-                fill="rgba(0,0,0,0.40)"
-                stroke="rgba(255,255,255,0.10)"
+                width={cardW}
+                height={cardH}
+                rx={24}
+                fill="url(#cardFill)"
+              />
+              <rect
+                x={x}
+                y={y}
+                width={cardW}
+                height={cardH}
+                rx={24}
+                fill="none"
+                className="orbStroke"
+                strokeWidth="1"
               />
 
-              {/* Orb */}
-              <g>
-                <circle cx={x + 26} cy={y + 32} r="14" fill="none" stroke={t.c} strokeWidth="4" opacity="0.95" />
-                <circle cx={x + 26} cy={y + 32} r="6.5" fill={t.c} opacity="0.95" />
-                <circle cx={x + 23.5} cy={y + 29.5} r="2.2" fill="#FFFFFF" opacity="0.35" />
-              </g>
+              {/* Orb ring */}
+              <circle cx={orbCx} cy={orbCy} r="18" fill="none" stroke={orb.color} strokeWidth="5" opacity="0.95" />
+              <circle cx={orbCx} cy={orbCy} r="8" fill={orb.color} opacity="0.9" />
+              <circle cx={orbCx} cy={orbCy} r="22" fill="none" className="orbStroke2" strokeWidth="1" />
 
               {/* Label */}
               <text
-                x={x + 52}
-                y={y + 24}
+                x={titleX}
+                y={titleY}
                 fill="rgba(255,255,255,0.55)"
                 fontSize="11"
-                fontFamily="Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial"
-                letterSpacing="1.2"
+                className="label"
               >
-                {t.label}
+                {orb.label}
               </text>
 
-              {/* Keywords with subtle cycling motion */}
-              {t.k.map((kw, idx) => {
-                // Each line gently takes a "turn" at being most prominent.
-                const begin = `${delay + idx * (cycle / 3)}s`;
-                const yLine = y + 52 + idx * 20;
-
-                return (
-                  <text
-                    key={kw}
-                    x={x + 52}
-                    y={yLine}
-                    fill={t.c}
-                    fontSize="18"
-                    fontWeight="750"
-                    fontFamily="Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial"
-                    letterSpacing="0.6"
-                    opacity="0.55"
-                  >
-                    {kw}
-                    <animate
-                      attributeName="opacity"
-                      values="0.55;0.95;0.55"
-                      dur={`${cycle}s`}
-                      begin={begin}
-                      repeatCount="indefinite"
-                      keyTimes="0;0.20;1"
-                    />
-                  </text>
-                );
-              })}
+              {/* Words */}
+              <text x={wordX} y={wordY1} fill={orb.color} fontSize="22" className="word w1">
+                {orb.words[0]}
+              </text>
+              <text x={wordX} y={wordY2} fill={orb.color} fontSize="22" className="word w2">
+                {orb.words[1]}
+              </text>
+              <text x={wordX} y={wordY3} fill={orb.color} fontSize="22" className="word w3">
+                {orb.words[2]}
+              </text>
             </g>
           );
         })}
 
-        {/* Bottom copy (no spill: manual wrap) */}
+        {/* White area */}
+        <rect
+          x="0"
+          y={whiteY}
+          width={W}
+          height={whiteH}
+          rx={outerR}
+          fill="url(#whiteFill)"
+        />
+
+        {/* Inner white stroke, to match your card styling */}
+        <rect
+          x="24"
+          y={whiteY + 18}
+          width={W - 48}
+          height={whiteH - 36}
+          rx={24}
+          fill="none"
+          stroke="rgba(17,24,39,0.12)"
+          strokeWidth="1"
+        />
+
+        {/* White area text, centered and not cropped */}
         <text
-  x={cardX + 64}
-  y={cardY + topH + 84}
-  fill="#475569"
-  fontSize="22"
-  fontWeight="500"
-  fontFamily="Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial"
->
-  <tspan x={cardX + 64} dy="0">
-    Orbs subtly rotate in your FeedsBar
-  </tspan>
-  <tspan x={cardX + 64} dy="30">
-    as the global narrative changes.
-  </tspan>
-</text>
+          x="72"
+          y={whiteY + 92}
+          fill="rgba(17,24,39,0.70)"
+          fontSize="28"
+          fontWeight="600"
+        >
+          Orbs subtly rotate in your FeedsBar as the global narrative changes.
+        </text>
       </g>
     </svg>
   );
@@ -220,62 +215,65 @@ export default function Orbs() {
   const { ref: sectionRef, isVisible } = useScrollAnimation<HTMLElement>();
 
   return (
-    <section id="orbs" className="py-20 lg:py-28 bg-white" ref={sectionRef}>
+    <section id="orbs" className="py-20 lg:py-28" ref={sectionRef}>
       <div className="container-wide">
-        <div className="grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Copy */}
           <div
-            className={`lg:col-span-5 transition-all duration-700 ${
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            className={`order-2 lg:order-1 transition-all duration-700 ${
+              isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
             }`}
           >
             <h2 className="text-3xl lg:text-4xl font-semibold text-brand-900 tracking-tight">
               Topic Orbs
             </h2>
 
-            <p className="mt-5 text-neutral-600 leading-relaxed max-w-lg">
-              Each Orb rotates through three keywords, so you can sense what is moving without opening anything.
+            <p className="mt-6 text-lg text-neutral-600 leading-relaxed">
+              Each topic has its own Orb. It rotates through three keywords so you can feel what is moving, without opening anything.
             </p>
 
-            <ul className="mt-8 space-y-4">
-              <li className="flex gap-4">
-                <span className="mt-1 w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center">
-                  <span className="w-2.5 h-2.5 rounded-full bg-accent" />
-                </span>
-                <p className="text-neutral-700 leading-relaxed">
-                  <span className="font-semibold text-brand-900">Glanceable:</span> A quick scan tells you what matters right now.
+            <div className="mt-8 space-y-4">
+              <div className="flex items-start gap-3">
+                <div className="w-5 h-5 rounded-full bg-neutral-200 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <div className="w-2 h-2 rounded-full bg-accent" />
+                </div>
+                <p className="text-neutral-700 text-sm leading-relaxed">
+                  <strong className="text-brand-900">Glanceable:</strong> A quick scan tells you what matters right now.
                 </p>
-              </li>
+              </div>
 
-              <li className="flex gap-4">
-                <span className="mt-1 w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center">
-                  <span className="w-2.5 h-2.5 rounded-full bg-accent" />
-                </span>
-                <p className="text-neutral-700 leading-relaxed">
-                  <span className="font-semibold text-brand-900">Contextual:</span> The News Orb can shift color with overall sentiment.
+              <div className="flex items-start gap-3">
+                <div className="w-5 h-5 rounded-full bg-neutral-200 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <div className="w-2 h-2 rounded-full bg-accent" />
+                </div>
+                <p className="text-neutral-700 text-sm leading-relaxed">
+                  <strong className="text-brand-900">Contextual:</strong> The News Orb can shift color with overall sentiment.
                 </p>
-              </li>
+              </div>
 
-              <li className="flex gap-4">
-                <span className="mt-1 w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center">
-                  <span className="w-2.5 h-2.5 rounded-full bg-accent" />
-                </span>
-                <p className="text-neutral-700 leading-relaxed">
-                  <span className="font-semibold text-brand-900">Non-intrusive:</span> No badges. No counts. No interruptions.
+              <div className="flex items-start gap-3">
+                <div className="w-5 h-5 rounded-full bg-neutral-200 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <div className="w-2 h-2 rounded-full bg-accent" />
+                </div>
+                <p className="text-neutral-700 text-sm leading-relaxed">
+                  <strong className="text-brand-900">Non-intrusive:</strong> No badges. No counts. No interruptions.
                 </p>
-              </li>
-            </ul>
+              </div>
+            </div>
           </div>
 
-          {/* Illustration */}
+          {/* Visual */}
           <div
-            className={`lg:col-span-7 transition-all duration-700 ${
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            className={`order-1 lg:order-2 transition-all duration-700 delay-150 ${
+              isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
             }`}
-            style={{ transitionDelay: "120ms" }}
           >
-            <div className="rounded-3xl overflow-hidden">
-              <OrbsInlineIllustration />
+            <div className="relative">
+              <div className="rounded-3xl overflow-hidden shadow-2xl">
+                <OrbsInlineSVG />
+              </div>
+
+              <div className="absolute -inset-6 -z-10 rounded-3xl blur-2xl bg-gradient-to-r from-category-blue/10 via-category-purple/10 to-category-gold/10" />
             </div>
           </div>
         </div>
