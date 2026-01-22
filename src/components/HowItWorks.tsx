@@ -26,7 +26,7 @@ const steps = [
     number: '02',
     title: 'Let FeedsBar run quietly',
     description:
-      'FeedsBar sits discreetly on your desktop — above the Dock or below the menu bar, your choice. It updates continuously in the background. No notifications. No interruptions.',
+      'FeedsBar sits discreetly on your desktop, above the Dock or below the menu bar depending on your preference. It updates continuously in the background. No notifications. No interruptions.',
     icon: (
       <svg
         width="24"
