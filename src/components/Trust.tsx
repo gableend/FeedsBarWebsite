@@ -75,7 +75,7 @@ export default function Trust() {
             Trust & privacy
           </h2>
           <p className="mt-4 text-neutral-600 max-w-lg mx-auto">
-            FeedBar is a tool you own, not a service that owns your data.
+            FeedsBar is a tool you own, not a service that owns your data.
           </p>
         </div>
 
