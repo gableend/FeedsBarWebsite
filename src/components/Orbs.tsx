@@ -201,7 +201,7 @@ export default function Orbs() {
                   <div className="w-2 h-2 rounded-full bg-accent" />
                 </div>
                 <p className="text-neutral-700 text-sm leading-relaxed">
-                  <strong className="text-brand-900">Glanceable:</strong> A quick scan tells you what matters right now.
+                  <strong className="text-brand-900">Glanceable:</strong> Know what matters in seconds.
                 </p>
               </div>
 
@@ -210,7 +210,7 @@ export default function Orbs() {
                   <div className="w-2 h-2 rounded-full bg-accent" />
                 </div>
                 <p className="text-neutral-700 text-sm leading-relaxed">
-                  <strong className="text-brand-900">Contextual:</strong> The News Orb can shift color with overall sentiment.
+                  <strong className="text-brand-900">Contextual:</strong> Orbs reflect the overall mood of a topic.
                 </p>
               </div>
 
