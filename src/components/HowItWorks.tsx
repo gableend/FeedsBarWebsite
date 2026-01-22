@@ -83,7 +83,7 @@ export default function HowItWorks() {
             How it works
           </h2>
           <p className="mt-4 text-neutral-600 max-w-md mx-auto">
-            Three simple steps to ambient awareness.
+            Three steps. No learning curve.
           </p>
         </div>
 
