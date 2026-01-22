@@ -228,14 +228,13 @@ export default function Orbs() {
           {/* Visual */}
           <div
             className={`order-1 lg:order-2 transition-all duration-700 delay-150 ${
-              isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
+            isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"
             }`}
           >
-            <div className="rounded-3xl overflow-hidden">
-  <OrbsInlineSVG />
-</div>
-
-            </div>
+          <div className="rounded-3xl overflow-hidden shadow-sm">
+          <OrbsInlineSVG />
+          </div>
+        </div>
           </div>
         </div>
       </div>
