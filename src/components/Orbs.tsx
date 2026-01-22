@@ -1,257 +1,235 @@
-import { useEffect, useMemo, useState } from 'react';
-import { useScrollAnimation } from '../hooks/useScrollAnimation';
+import { useScrollAnimation } from "../hooks/useScrollAnimation";
 
-type Topic = {
-  name: string;
-  color: string;
-  signals: [string, string, string][];
-};
+function OrbsInlineIllustration() {
+  // Brand-ish palette (tweak any hex later if you want them tighter to your UI)
+  const colors = {
+    news: "#F59E0B", // amber
+    trends: "#10B981", // emerald
+    science: "#8B5CF6", // violet
+    sport: "#EF4444", // red
+    ai: "#3B82F6", // blue
+    business: "#94A3B8", // slate
+  };
 
-const orbTopics: Topic[] = [
-  {
-    name: 'News',
-    color: '#F59E0B',
-    signals: [
-      ['GAZA', 'AID', 'CEASEFIRE'],
-      ['ELECTION', 'BUDGET', 'STRIKE'],
-      ['TRUMP', 'WAR', 'NATO'],
-    ],
-  },
-  {
-    name: 'Trends',
-    color: '#10B981',
-    signals: [
-      ['CREATORS', 'SHORTS', 'SHIFTS'],
-      ['LAYOFFS', 'HYPER', 'GROWTH'],
-      ['PRICING', 'BUNDLES', 'FATIGUE'],
-    ],
-  },
-  {
-    name: 'Science',
-    color: '#8B5CF6',
-    signals: [
-      ['FUSION', 'BREAK', 'THROUGH'],
-      ['CLIMATE', 'HEAT', 'RECORDS'],
-      ['SPACE', 'MOON', 'LANDER'],
-    ],
-  },
-  {
-    name: 'Sport',
-    color: '#EF4444',
-    signals: [
-      ['TRANSFER', 'DRAMA', 'DEADLINE'],
-      ['INJURY', 'SETBACK', 'RETURN'],
-      ['TITLE', 'RACE', 'HEATS'],
-    ],
-  },
-  {
-    name: 'AI & Research',
-    color: '#3B82F6',
-    signals: [
-      ['AGENTS', 'TOOLS', 'RUSH'],
-      ['MODELS', 'BENCH', 'SHIFT'],
-      ['AI', 'SAFETY', 'POLICY'],
-    ],
-  },
-];
+  const tiles = [
+    { label: "NEWS", k1: "ELECTION", k2: "BUDGET", k3: "STRIKE", c: colors.news },
+    { label: "TRENDS", k1: "CREATORS", k2: "SHORTS", k3: "SHIFTS", c: colors.trends },
+    { label: "SCIENCE", k1: "SPACE", k2: "MOON", k3: "LANDER", c: colors.science },
+    { label: "SPORT", k1: "TITLE", k2: "RACE", k3: "HEATS", c: colors.sport },
+    { label: "AI & RESEARCH", k1: "MODELS", k2: "BENCH", k3: "SHIFT", c: colors.ai },
+    { label: "BUSINESS", k1: "EARNINGS", k2: "RATES", k3: "DEALS", c: colors.business },
+  ];
 
-function useRotatingSignal(signals: [string, string, string][], intervalMs = 2200) {
-  const [idx, setIdx] = useState(0);
+  // Layout: 2 rows x 3 cols
+  const originX = 54;
+  const originY = 48;
+  const colW = 240;
+  const rowH = 110;
+  const tileW = 220;
+  const tileH = 84;
+  const gapX = 22;
+  const gapY = 18;
 
-  useEffect(() => {
-    if (!signals.length) return;
-    const t = setInterval(() => {
-      setIdx((p) => (p + 1) % signals.length);
-    }, intervalMs);
-    return () => clearInterval(t);
-  }, [signals.length, intervalMs]);
-
-  return signals[idx] ?? ['—', '—', '—'];
-}
-
-function OrbBadge({
-  label,
-  color,
-  words,
-}: {
-  label: string;
-  color: string;
-  words: [string, string, string];
-}) {
-  // Keep viewBox consistent; size controlled by CSS for responsive layout
   return (
     <svg
-      viewBox="0 0 260 74"
-      fill="none"
-      role="img"
-      aria-label={`${label}: ${words.join(', ')}`}
+      viewBox="0 0 860 420"
       className="w-full h-auto"
-      preserveAspectRatio="xMinYMid meet"
+      role="img"
+      aria-label="A stylized preview of FeedsBar Topic Orbs"
     >
+      <defs>
+        <linearGradient id="bgSheen" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="#0B0B0C" />
+          <stop offset="1" stopColor="#141416" />
+        </linearGradient>
+
+        <filter id="softShadow" x="-30%" y="-30%" width="160%" height="160%">
+          <feDropShadow dx="0" dy="16" stdDeviation="18" floodColor="#000000" floodOpacity="0.25" />
+        </filter>
+
+        <filter id="tileGlow" x="-40%" y="-40%" width="180%" height="180%">
+          <feDropShadow dx="0" dy="6" stdDeviation="10" floodColor="#000000" floodOpacity="0.35" />
+        </filter>
+      </defs>
+
+      {/* Outer card */}
+      <g filter="url(#softShadow)">
+        <rect x="20" y="20" rx="26" ry="26" width="820" height="380" fill="#FFFFFF" />
+      </g>
+
+      {/* Top dark area */}
+      <rect x="20" y="20" rx="26" ry="26" width="820" height="210" fill="url(#bgSheen)" />
+
+      {/* Subtle inner border */}
       <rect
-        x="0.5"
-        y="0.5"
-        width="259"
-        height="73"
-        rx="14"
-        fill="rgba(0,0,0,0.40)"
-        stroke="rgba(255,255,255,0.10)"
+        x="28"
+        y="28"
+        rx="22"
+        ry="22"
+        width="804"
+        height="364"
+        fill="none"
+        stroke="#000000"
+        strokeOpacity="0.18"
       />
 
-      {/* Orb */}
-      <g transform="translate(14 14)">
-        <circle cx="18" cy="23" r="18" fill={color} opacity="0.18" />
-        <circle cx="18" cy="23" r="14.5" stroke={color} strokeWidth="2.5" opacity="0.95" />
-        <circle cx="18" cy="23" r="9.5" fill={color} opacity="0.85" />
-        <circle cx="13" cy="18" r="3.2" fill="white" opacity="0.55" />
-      </g>
+      {/* Tiles */}
+      {tiles.map((t, i) => {
+        const col = i % 3;
+        const row = Math.floor(i / 3);
+        const x = originX + col * (tileW + gapX);
+        const y = originY + row * (tileH + gapY);
 
-      {/* Text */}
-      <g transform="translate(54 14)">
-        <text
-          x="0"
-          y="10"
-          fill="rgba(255,255,255,0.65)"
-          fontSize="10"
-          fontFamily="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace"
-          letterSpacing="0.12em"
-        >
-          {label.toUpperCase()}
-        </text>
+        return (
+          <g key={t.label} filter="url(#tileGlow)">
+            <rect
+              x={x}
+              y={y}
+              rx="16"
+              ry="16"
+              width={tileW}
+              height={tileH}
+              fill="rgba(0,0,0,0.35)"
+              stroke="rgba(255,255,255,0.10)"
+            />
 
-        <text
-          x="0"
-          y="30"
-          fill={color}
-          fontSize="16"
-          fontWeight="700"
-          fontFamily="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace"
-        >
-          {words[0]}
-        </text>
-        <text
-          x="0"
-          y="48"
-          fill={color}
-          fontSize="16"
-          fontWeight="700"
-          fontFamily="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace"
-        >
-          {words[1]}
-        </text>
-        <text
-          x="0"
-          y="66"
-          fill={color}
-          fontSize="16"
-          fontWeight="700"
-          fontFamily="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace"
-        >
-          {words[2]}
-        </text>
-      </g>
+            {/* Orb ring */}
+            <g>
+              <circle cx={x + 26} cy={y + 30} r="14" fill="none" stroke={t.c} strokeWidth="4" opacity="0.95" />
+              <circle cx={x + 26} cy={y + 30} r="6.5" fill={t.c} opacity="0.95" />
+              <circle cx={x + 23.5} cy={y + 27.5} r="2.2" fill="#FFFFFF" opacity="0.35" />
+            </g>
+
+            {/* Label */}
+            <text
+              x={x + 50}
+              y={y + 24}
+              fill="rgba(255,255,255,0.55)"
+              fontSize="11"
+              fontFamily="Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial"
+              letterSpacing="1.2"
+            >
+              {t.label}
+            </text>
+
+            {/* Keywords */}
+            <text
+              x={x + 50}
+              y={y + 48}
+              fill={t.c}
+              fontSize="18"
+              fontWeight="700"
+              fontFamily="Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial"
+              letterSpacing="0.6"
+            >
+              {t.k1}
+            </text>
+            <text
+              x={x + 50}
+              y={y + 68}
+              fill={t.c}
+              fontSize="18"
+              fontWeight="700"
+              fontFamily="Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial"
+              letterSpacing="0.6"
+            >
+              {t.k2}
+            </text>
+            <text
+              x={x + 50}
+              y={y + 88}
+              fill={t.c}
+              fontSize="18"
+              fontWeight="700"
+              fontFamily="Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial"
+              letterSpacing="0.6"
+            >
+              {t.k3}
+            </text>
+          </g>
+        );
+      })}
+
+      {/* Bottom white copy area */}
+      <rect x="20" y="210" width="820" height="190" fill="#FFFFFF" rx="0" ry="0" />
+      {/* Re-round bottom corners */}
+      <path
+        d="M20 210 H840 V374 C840 389 828 400 814 400 H46 C32 400 20 389 20 374 V210 Z"
+        fill="#FFFFFF"
+      />
+
+      <text
+        x="64"
+        y="290"
+        fill="#475569"
+        fontSize="22"
+        fontWeight="500"
+        fontFamily="Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial"
+      >
+        Orbs rotate every few seconds. A click opens the full story in your browser.
+      </text>
     </svg>
   );
 }
 
 export default function Orbs() {
   const { ref: sectionRef, isVisible } = useScrollAnimation<HTMLElement>();
-  const signalsByTopic = useMemo(() => orbTopics.map((t) => t.signals), []);
-  const rotating = orbTopics.map((t, i) => useRotatingSignal(signalsByTopic[i] ?? [], 2200 + i * 150));
 
   return (
-    <section id="features" className="py-20 lg:py-28" ref={sectionRef}>
+    <section id="orbs" className="py-20 lg:py-28 bg-white" ref={sectionRef}>
       <div className="container-wide">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
           {/* Copy */}
           <div
-            className={`order-2 lg:order-1 transition-all duration-700 ${
-              isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
+            className={`lg:col-span-5 transition-all duration-700 ${
+              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
           >
-            <h2 className="text-3xl lg:text-4xl font-semibold text-brand-900 tracking-tight">
-              Topic Orbs
-            </h2>
+            <h2 className="text-3xl lg:text-4xl font-semibold text-brand-900 tracking-tight">Topic Orbs</h2>
 
-            <p className="mt-6 text-lg text-neutral-600 leading-relaxed">
+            <p className="mt-5 text-neutral-600 leading-relaxed max-w-lg">
               Each Orb rotates through three keywords, so you can sense what is moving without opening anything.
             </p>
 
-            <div className="mt-8 space-y-4">
-              <div className="flex items-start gap-3">
-                <div className="w-5 h-5 rounded-full bg-neutral-200 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <div className="w-2 h-2 rounded-full bg-accent" />
-                </div>
-                <p className="text-neutral-700 text-sm leading-relaxed">
-                  <strong className="text-brand-900">Glanceable:</strong> A quick scan tells you what matters right now.
+            <ul className="mt-8 space-y-4">
+              <li className="flex gap-4">
+                <span className="mt-1 w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center">
+                  <span className="w-2.5 h-2.5 rounded-full bg-accent" />
+                </span>
+                <p className="text-neutral-700 leading-relaxed">
+                  <span className="font-semibold text-brand-900">Glanceable:</span> A quick scan tells you what matters right now.
                 </p>
-              </div>
+              </li>
 
-              <div className="flex items-start gap-3">
-                <div className="w-5 h-5 rounded-full bg-neutral-200 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <div className="w-2 h-2 rounded-full bg-accent" />
-                </div>
-                <p className="text-neutral-700 text-sm leading-relaxed">
-                  <strong className="text-brand-900">Contextual:</strong> The News Orb can shift color with overall sentiment.
+              <li className="flex gap-4">
+                <span className="mt-1 w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center">
+                  <span className="w-2.5 h-2.5 rounded-full bg-accent" />
+                </span>
+                <p className="text-neutral-700 leading-relaxed">
+                  <span className="font-semibold text-brand-900">Contextual:</span> The News Orb can shift color with overall sentiment.
                 </p>
-              </div>
+              </li>
 
-              <div className="flex items-start gap-3">
-                <div className="w-5 h-5 rounded-full bg-neutral-200 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <div className="w-2 h-2 rounded-full bg-accent" />
-                </div>
-                <p className="text-neutral-700 text-sm leading-relaxed">
-                  <strong className="text-brand-900">Non-intrusive:</strong> No badges. No counts. No interruptions.
+              <li className="flex gap-4">
+                <span className="mt-1 w-8 h-8 rounded-full bg-accent/10 flex items-center justify-center">
+                  <span className="w-2.5 h-2.5 rounded-full bg-accent" />
+                </span>
+                <p className="text-neutral-700 leading-relaxed">
+                  <span className="font-semibold text-brand-900">Non-intrusive:</span> No badges. No counts. No interruptions.
                 </p>
-              </div>
-            </div>
+              </li>
+            </ul>
           </div>
 
-          {/* Visual */}
+          {/* Illustration */}
           <div
-            className={`order-1 lg:order-2 transition-all duration-700 delay-150 ${
-              isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
+            className={`lg:col-span-7 transition-all duration-700 ${
+              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
+            style={{ transitionDelay: "120ms" }}
           >
-            <div className="relative">
-              <div className="rounded-2xl border border-neutral-200 bg-white/70 backdrop-blur-sm shadow-xl overflow-hidden">
-                {/* Dark “desktop strip” */}
-                <div className="px-4 py-4 bg-neutral-950">
-                  {/* Responsive grid so we never “miss” orbs */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                    {orbTopics.map((t, idx) => (
-                      <div
-                        key={t.name}
-                        className="transition-all duration-200 hover:-translate-y-0.5"
-                        style={{
-                          filter: 'drop-shadow(0 14px 22px rgba(0,0,0,0.35))',
-                        }}
-                        title={t.name}
-                      >
-                        {/* Keep cards from getting too tall on small screens */}
-                        <div className="w-full max-w-[320px]">
-                          <OrbBadge label={t.name} color={t.color} words={rotating[idx] as [string, string, string]} />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="px-6 py-6">
-                  <p className="text-sm text-neutral-600">
-                    Orbs rotate every few seconds. A click opens the full story in your browser.
-                  </p>
-                </div>
-              </div>
-
-              {/* Ambient glow */}
-              <div
-                className="absolute -inset-6 rounded-3xl -z-10 blur-3xl"
-                style={{
-                  background:
-                    'radial-gradient(60% 60% at 30% 30%, rgba(59,130,246,0.10), transparent 60%), radial-gradient(60% 60% at 70% 40%, rgba(139,92,246,0.10), transparent 60%), radial-gradient(60% 60% at 50% 80%, rgba(245,158,11,0.10), transparent 60%)',
-                }}
-              />
+            <div className="rounded-3xl overflow-hidden">
+              <OrbsInlineIllustration />
             </div>
           </div>
         </div>
