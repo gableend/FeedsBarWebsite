@@ -18,14 +18,15 @@ export default function Control() {
             }`}
             style={{ transitionDelay: "100ms" }}
           >
-            <div className="relative overflow-hidden rounded-3xl border border-neutral-200 bg-white shadow-sm">
-              <img
-                src="/images/control.png"
-                alt="FeedsBar controls"
-                className="w-full h-auto"
-                loading="lazy"
-              />
-            </div>
+            <div className="relative overflow-hidden rounded-3xl">
+  <img
+    src="/images/control.png"
+    alt="FeedsBar controls"
+    className="w-full h-auto"
+    loading="lazy"
+  />
+</div>
+
           </div>
 
           {/* Copy (right) */}
