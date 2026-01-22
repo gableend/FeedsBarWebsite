@@ -234,7 +234,6 @@ export default function Orbs() {
           <div className="rounded-3xl overflow-hidden shadow-sm">
           <OrbsInlineSVG />
           </div>
-        </div>
           </div>
         </div>
       </div>
