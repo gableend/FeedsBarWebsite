@@ -33,25 +33,25 @@ export default function Hero() {
   return (
     <section className="pt-32 pb-20 lg:pt-40 lg:pb-28">
       <div className="container-wide">
-        {/* Copy (centered) */}
-        <div className="fade-in-up text-center mx-auto max-w-3xl">
+        {/* Copy (left-aligned, max width) */}
+        <div className="fade-in-up max-w-3xl">
           <h1 className="text-4xl lg:text-5xl font-semibold text-brand-900 leading-tight tracking-tight">
             Stay informed without being interrupted.
           </h1>
 
           <p
-            className="mt-6 text-lg text-neutral-600 leading-relaxed mx-auto max-w-2xl fade-in-up"
+            className="mt-6 text-lg text-neutral-600 leading-relaxed max-w-2xl fade-in-up"
             style={{ animationDelay: '0.1s' }}
           >
             FeedBar brings high-signal headlines and topics to your Mac desktop, quietly, continuously, and without subscriptions.
           </p>
 
-          {/* Value pills (centered, calm, wrapping) */}
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-2 sm:gap-3">
+          {/* Value pills (left-aligned, calm) */}
+          <div className="mt-8 flex flex-wrap items-center gap-2 sm:gap-3">
             {valuePills.map((pill, index) => (
               <div
                 key={pill}
-                className="fade-in-up inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-neutral-50 px-3 py-1.5 text-sm text-neutral-700"
+                className="fade-in-up inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white/60 px-3 py-1.5 text-sm text-neutral-700 backdrop-blur"
                 style={{ animationDelay: `${0.2 + index * 0.1}s` }}
               >
                 <span className="h-1.5 w-1.5 rounded-full bg-neutral-400" />
@@ -60,9 +60,9 @@ export default function Hero() {
             ))}
           </div>
 
-          {/* CTAs (centered) */}
+          {/* CTAs (left-aligned) */}
           <div
-            className="mt-10 flex flex-wrap items-center justify-center gap-4 fade-in-up"
+            className="mt-10 flex flex-wrap items-center gap-4 fade-in-up"
             style={{ animationDelay: '0.5s' }}
           >
             <button onClick={handleCTAClick} className="btn-primary">
@@ -78,7 +78,7 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Product visual (below copy, larger) */}
+        {/* Product visual (below copy, wide) */}
         <div className="mt-14 lg:mt-16" style={{ animationDelay: '0.3s' }}>
           <div className="relative mx-auto max-w-6xl">
             {prefersReducedMotion ? (
@@ -101,7 +101,7 @@ export default function Hero() {
               </video>
             )}
 
-            {/* Optional subtle glow */}
+            {/* Subtle glow (kept, still restrained) */}
             <div className="pointer-events-none absolute -top-6 right-10 w-28 h-28 rounded-full bg-gradient-to-br from-category-blue/15 to-category-teal/15 blur-3xl" />
             <div className="pointer-events-none absolute -bottom-10 left-10 w-32 h-32 rounded-full bg-gradient-to-br from-accent/10 to-category-gold/10 blur-3xl" />
           </div>
