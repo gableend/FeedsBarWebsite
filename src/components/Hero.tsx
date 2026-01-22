@@ -33,18 +33,22 @@ export default function Hero() {
   return (
     <section className="pt-32 pb-20 lg:pt-40 lg:pb-28">
       <div className="container-wide">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Copy */}
-          <div className="fade-in-up">
-            <h1 className="text-4xl lg:text-5xl font-semibold text-brand-900 leading-tight tracking-tight">
-              Stay informed without being interrupted.
-            </h1>
-            <p className="mt-6 text-lg text-neutral-600 leading-relaxed max-w-lg fade-in-up" style={{ animationDelay: '0.1s' }}>
-              FeedBar brings high-signal headlines and topics to your Mac desktop, quietly, continuously, and without subscriptions.
-            </p>
+        {/* Copy (centered) */}
+        <div className="fade-in-up text-center mx-auto max-w-3xl">
+          <h1 className="text-4xl lg:text-5xl font-semibold text-brand-900 leading-tight tracking-tight">
+            Stay informed without being interrupted.
+          </h1>
 
-            {/* Value bullets */}
-            <ul className="mt-8 space-y-3">
+          <p
+            className="mt-6 text-lg text-neutral-600 leading-relaxed mx-auto max-w-2xl fade-in-up"
+            style={{ animationDelay: '0.1s' }}
+          >
+            FeedBar brings high-signal headlines and topics to your Mac desktop, quietly, continuously, and without subscriptions.
+          </p>
+
+          {/* Value bullets (centered block, left-aligned text) */}
+          <div className="mt-8 mx-auto max-w-md">
+            <ul className="space-y-3 text-left">
               {valueBullets.map((bullet, index) => (
                 <li
                   key={bullet}
@@ -56,51 +60,52 @@ export default function Hero() {
                 </li>
               ))}
             </ul>
-
-            {/* CTAs */}
-            <div className="mt-10 flex flex-wrap items-center gap-4 fade-in-up" style={{ animationDelay: '0.5s' }}>
-              <button
-                onClick={handleCTAClick}
-                className="btn-primary"
-              >
-                {IS_LIVE ? 'Buy for €24.99' : 'Join waitlist'}
-              </button>
-              <a
-                href="#how-it-works"
-                className="text-sm text-neutral-600 hover:text-accent hover:underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 focus-visible:rounded transition-colors"
-              >
-                See how it works
-              </a>
-            </div>
           </div>
 
-          {/* Product visual */}
-          <div className="slide-in-right lg:pl-8" style={{ animationDelay: '0.3s' }}>
-            <div className="relative">
-              {/* Hero video with reduced-motion fallback */}
-              {prefersReducedMotion ? (
-                <img
-                  src="/images/FeedsBarv3.png"
-                  alt="FeedBar application interface"
-                  className="w-full rounded-xl shadow-2xl shadow-brand-900/20"
-                />
-              ) : (
-                <video
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  className="w-full rounded-xl shadow-2xl shadow-brand-900/20"
-                  aria-label="FeedBar application demo"
-                >
-                  <source src="/videos/FeedsBarv3.mp4" type="video/mp4" />
-                </video>
-              )}
+          {/* CTAs (centered) */}
+          <div
+            className="mt-10 flex flex-wrap items-center justify-center gap-4 fade-in-up"
+            style={{ animationDelay: '0.5s' }}
+          >
+            <button onClick={handleCTAClick} className="btn-primary">
+              {IS_LIVE ? 'Buy for €24.99' : 'Join waitlist'}
+            </button>
 
-              {/* Floating orb decorations */}
-              <div className="absolute -top-4 -right-4 w-20 h-20 rounded-full bg-gradient-to-br from-category-blue/20 to-category-teal/20 blur-2xl" />
-              <div className="absolute -bottom-6 -left-6 w-24 h-24 rounded-full bg-gradient-to-br from-accent/15 to-category-gold/15 blur-2xl" />
-            </div>
+            <a
+              href="#how-it-works"
+              className="text-sm text-neutral-600 hover:text-accent hover:underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 focus-visible:rounded transition-colors"
+            >
+              See how it works
+            </a>
+          </div>
+        </div>
+
+        {/* Product visual (below copy, larger) */}
+        <div className="mt-14 lg:mt-16 slide-in-right" style={{ animationDelay: '0.3s' }}>
+          <div className="relative mx-auto max-w-6xl">
+            {prefersReducedMotion ? (
+              <img
+                src="/images/FeedsBarv3.png"
+                alt="FeedBar application interface"
+                className="w-full rounded-xl shadow-2xl shadow-brand-900/20"
+              />
+            ) : (
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="metadata"
+                className="w-full rounded-xl shadow-2xl shadow-brand-900/20"
+                aria-label="FeedBar application demo"
+              >
+                <source src="/videos/FeedsBarv3.mp4" type="video/mp4" />
+              </video>
+            )}
+
+            {/* Optional subtle glow (kept, but toned to work at larger size) */}
+            <div className="pointer-events-none absolute -top-6 right-10 w-28 h-28 rounded-full bg-gradient-to-br from-category-blue/15 to-category-teal/15 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-10 left-10 w-32 h-32 rounded-full bg-gradient-to-br from-accent/10 to-category-gold/10 blur-3xl" />
           </div>
         </div>
       </div>
