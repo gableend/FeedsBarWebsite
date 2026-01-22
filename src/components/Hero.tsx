@@ -13,7 +13,6 @@ export default function Hero() {
 
           {/* Pills */}
           <div className="mt-7 flex gap-3 overflow-x-auto whitespace-nowrap pb-1">
-            <div className="mt-7 flex gap-3 overflow-x-auto whitespace-nowrap pb-1">
             <span className="inline-flex shrink-0 items-center rounded-full border border-brand-200 bg-white px-4 py-2 text-sm text-brand-700">
               Ambient awareness, not alerts
             </span>
