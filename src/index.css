@@ -144,38 +144,84 @@
     animation: pricingSignalSweep 1.6s ease-out forwards;
   }
 
-  .pricing-signal-pulse {
-    position: absolute;
-    top: 50%;
-    left: 62%;
-    width: 10px;
-    height: 10px;
-    transform: translate(-50%, -50%);
-    border-radius: 9999px;
-    background: rgba(59, 130, 246, 0.35);
+/* =========================
+   Pricing signal animation
+   ========================= */
+
+/* Full-width track that spans the viewport */
+.pricing-signal-track {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100vw;
+  height: 2px;
+  transform: translateY(-50%);
+  overflow: visible;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Animated signal line */
+.pricing-signal-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(79, 140, 255, 0.35) 30%,
+    rgba(79, 140, 255, 0.75) 60%,
+    rgba(79, 140, 255, 1) 85%,
+    transparent 100%
+  );
+  animation: pricing-signal-sweep 1.4s ease-out forwards;
+}
+
+/* Sweep from left edge → pricing card center */
+@keyframes pricing-signal-sweep {
+  from {
+    width: 0;
     opacity: 0;
-    animation: pricingSignalPulse 0.9s ease-out forwards;
-    animation-delay: 1.35s;
   }
-
-  @keyframes pricingSignalSweep {
-    to {
-      left: 65%;
-    }
+  10% {
+    opacity: 1;
   }
-
-  @keyframes pricingSignalPulse {
-    0% {
-      opacity: 0;
-      transform: translate(-50%, -50%) scale(0.6);
-    }
-    30% {
-      opacity: 0.6;
-    }
-    100% {
-      opacity: 0;
-      transform: translate(-50%, -50%) scale(4);
-    }
+  to {
+    width: 55%;
+    opacity: 0.9;
   }
 }
 
+/* Pulse that resolves on the card */
+.pricing-signal-pulse {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  background: rgba(79, 140, 255, 1);
+  border-radius: 999px;
+  transform: translate(-50%, -50%);
+  box-shadow:
+    0 0 0 rgba(79, 140, 255, 0.6);
+  animation: pricing-pulse 1.2s ease-out 0.9s forwards;
+  z-index: 2;
+}
+
+/* Pulse expansion */
+@keyframes pricing-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(79, 140, 255, 0.6);
+    opacity: 1;
+  }
+  70% {
+    box-shadow: 0 0 0 28px rgba(79, 140, 255, 0);
+    opacity: 0.8;
+  }
+  100% {
+    box-shadow: 0 0 0 42px rgba(79, 140, 255, 0);
+    opacity: 0;
+  }
+}
