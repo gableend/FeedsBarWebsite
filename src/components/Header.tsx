@@ -1,111 +1,42 @@
-import { useState } from 'react';
-import { IS_LIVE, PADDLE_CHECKOUT_URL } from '../config';
-
+// Header.tsx
 export default function Header() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  const handleCTAClick = () => {
-    if (IS_LIVE) {
-      window.open(PADDLE_CHECKOUT_URL, '_blank');
-    } else {
-      document.getElementById('notify')?.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-black/95 backdrop-blur-sm">
-      <div className="container-wide">
-        <nav className="flex items-center justify-between h-16 lg:h-18">
-          {/* Logo */}
-          <a href="/" className="flex items-center gap-2.5 group">
+    <header className="fixed top-0 z-50 w-full border-b border-white/10 bg-black/90 backdrop-blur">
+      <div className="container-wide flex h-16 items-center justify-between">
+        {/* Brand */}
+        <a href="#top" className="flex items-center gap-2">
+          <span className="flex items-center justify-center rounded-full bg-white/5 p-1.5">
             <img
               src="/images/feeds-mark-core.svg"
               alt="FeedBar"
-              className="h-14 w-auto"
+              className="h-6 md:h-7 w-auto"
             />
-            <span className="text-lg font-semibold text-white group-hover:text-white transition-colors">
-              FeedBar
-            </span>
-          </a>
+          </span>
+          <span className="text-sm font-semibold text-white">FeedBar</span>
+        </a>
 
-          {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-8">
-            <a
-              href="#features"
-              className="text-sm text-white/80 hover:text-white transition-colors"
-            >
-              Features
-            </a>
-            <a
-              href="#pricing"
-              className="text-sm text-white/80 hover:text-white transition-colors"
-            >
-              Pricing
-            </a>
-            <a
-              href="#trust"
-              className="text-sm text-white/80 hover:text-white transition-colors"
-            >
-              Trust
-            </a>
-            <button
-              onClick={handleCTAClick}
-              className="px-5 py-2.5 bg-white text-brand-900 text-sm font-medium rounded-lg hover:bg-brand-50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-black"
-            >
-              {IS_LIVE ? 'Buy' : 'Join waitlist'}
-            </button>
-          </div>
-
-          {/* Mobile menu button */}
-          <button
-            className="md:hidden p-2 text-white"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle menu"
+        {/* Navigation */}
+        <nav className="hidden items-center gap-8 md:flex">
+          <a
+            href="#about"
+            className="text-sm text-white/70 hover:text-white transition-colors"
           >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              {mobileMenuOpen ? (
-                <path d="M6 6l12 12M6 18L18 6" />
-              ) : (
-                <path d="M4 6h16M4 12h16M4 18h16" />
-              )}
-            </svg>
-          </button>
+            About
+          </a>
+          <a
+            href="#press"
+            className="text-sm text-white/70 hover:text-white transition-colors"
+          >
+            Press
+          </a>
         </nav>
 
-        {/* Mobile menu */}
-        {mobileMenuOpen && (
-          <div className="md:hidden py-4 border-t border-white/10 fade-in bg-black">
-            <div className="flex flex-col gap-4">
-              <a
-                href="#features"
-                className="text-sm text-white/80 hover:text-white transition-colors"
-              >
-                Features
-              </a>
-              <a
-                href="#pricing"
-                className="text-sm text-white/80 hover:text-white transition-colors"
-              >
-                Pricing
-              </a>
-              <a
-                href="#trust"
-                className="text-sm text-white/80 hover:text-white transition-colors"
-              >
-                Trust
-              </a>
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  handleCTAClick();
-                }}
-                className="w-full px-5 py-2.5 bg-white text-brand-900 text-sm font-medium rounded-lg hover:bg-brand-50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-black"
-              >
-                {IS_LIVE ? 'Buy' : 'Join waitlist'}
-              </button>
-            </div>
-          </div>
-        )}
+        {/* CTA */}
+        <div className="flex items-center">
+          <a href="#notify" className="btn-primary">
+            Join waitlist
+          </a>
+        </div>
       </div>
     </header>
   );
