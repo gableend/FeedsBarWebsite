@@ -28,7 +28,7 @@ function OrbsInlineIllustration() {
   const r = 26;
 
   // Make the black area larger
-  const topH = 260; // was ~210
+  const topH = 320; // was ~210
   const bottomH = cardH - topH;
 
   // Tile geometry (2 rows x 3 cols)
@@ -38,7 +38,7 @@ function OrbsInlineIllustration() {
   const gapY = 22;
 
   const originX = cardX + 38;
-  const originY = cardY + 46;
+  const originY = cardY + 60;
 
   // Motion tuning
   const cycle = 5.6; // seconds
@@ -197,20 +197,20 @@ function OrbsInlineIllustration() {
 
         {/* Bottom copy (no spill: manual wrap) */}
         <text
-          x={cardX + 64}
-          y={cardY + topH + 72}
-          fill="#475569"
-          fontSize="22"
-          fontWeight="500"
-          fontFamily="Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial"
-        >
-          <tspan x={cardX + 64} dy="0">
-            Orbs rotate every few seconds.
-          </tspan>
-          <tspan x={cardX + 64} dy="30">
-            A click opens the full story in your browser.
-          </tspan>
-        </text>
+  x={cardX + 64}
+  y={cardY + topH + 84}
+  fill="#475569"
+  fontSize="22"
+  fontWeight="500"
+  fontFamily="Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial"
+>
+  <tspan x={cardX + 64} dy="0">
+    Orbs subtly rotate in your FeedsBar
+  </tspan>
+  <tspan x={cardX + 64} dy="30">
+    as the global narrative changes.
+  </tspan>
+</text>
       </g>
     </svg>
   );
