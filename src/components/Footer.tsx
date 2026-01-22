@@ -1,20 +1,20 @@
-import { CONTACT_EMAIL, PRIVACY_POLICY_URL, TERMS_URL } from '../config';
+import { CONTACT_EMAIL, PRIVACY_POLICY_URL, TERMS_URL } from "../config";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="py-12 border-t border-neutral-200">
+    <footer className="border-t border-neutral-200 py-12">
       <div className="container-wide">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           {/* Logo */}
-          <a href="/" className="flex items-center gap-2.5 group">
+          <a href="/" className="flex items-center gap-3 group">
             <img
               src="/images/feeds-mark-core.svg"
               alt="FeedsBar"
-              className="h-8 w-auto"
+              className="h-7 w-auto"
             />
-            <span className="text-sm font-semibold text-brand-900 group-hover:text-brand-900 transition-colors">
+            <span className="text-lg font-semibold tracking-tight text-brand-900">
               feeds.bar
             </span>
           </a>
