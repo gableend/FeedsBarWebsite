@@ -19,9 +19,25 @@ export default function Pricing() {
   };
 
   return (
-    <section id="pricing" className="py-20 lg:py-28 bg-gray-50" ref={sectionRef}>
-      <div className="container-narrow">
-        <div className={`text-center mb-12 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+    <section
+      id="pricing"
+      className="relative py-20 lg:py-28 bg-gray-50 overflow-hidden"
+      ref={sectionRef}
+    >
+      {/* Signal animation layer */}
+      {isVisible && (
+        <div className="pointer-events-none absolute inset-0">
+          <div className="pricing-signal-line" />
+          <div className="pricing-signal-pulse" />
+        </div>
+      )}
+
+      <div className="container-narrow relative">
+        <div
+          className={`text-center mb-12 transition-all duration-700 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}
+        >
           <h2 className="text-3xl lg:text-4xl font-semibold text-brand-900 tracking-tight">
             Simple pricing
           </h2>
@@ -31,14 +47,21 @@ export default function Pricing() {
         </div>
 
         <div className="max-w-md mx-auto">
-          <div className={`bg-white rounded-2xl border border-neutral-200 p-8 lg:p-10 shadow-xl shadow-brand-900/5 transition-all duration-700 delay-150 ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-8 scale-95'}`}>
+          <div
+            className={`relative bg-white rounded-2xl border border-neutral-200 p-8 lg:p-10
+              shadow-xl shadow-brand-900/5 transition-all duration-700 delay-150
+              ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-8 scale-95'}
+            `}
+          >
             {/* Price */}
             <div className="text-center">
               <span className="text-sm font-medium text-neutral-500 uppercase tracking-wider">
                 One-time purchase
               </span>
               <div className="mt-4 flex items-baseline justify-center gap-1">
-                <span className="text-5xl font-semibold text-brand-900">{PRICE}</span>
+                <span className="text-5xl font-semibold text-brand-900">
+                  {PRICE}
+                </span>
               </div>
               <p className="mt-2 text-sm text-neutral-500">
                 Pay once. Keep it open.
@@ -66,10 +89,7 @@ export default function Pricing() {
             </ul>
 
             {/* CTA */}
-            <button
-              onClick={handleCTAClick}
-              className="mt-10 w-full btn-primary"
-            >
+            <button onClick={handleCTAClick} className="mt-10 w-full btn-primary">
               {IS_LIVE ? `Buy for ${PRICE}` : 'Join waitlist'}
             </button>
 
