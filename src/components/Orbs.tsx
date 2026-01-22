@@ -7,18 +7,33 @@ type Orb = {
 };
 
 const ORBS: Orb[] = [
-  { label: 'NEWS', color: '#F59E0B', words: ['ELECTION', 'BUDGET', 'STRIKE'] },
-  { label: 'TRENDS', color: '#10B981', words: ['CREATORS', 'SHORTS', 'SHIFTS'] },
-  { label: 'SCIENCE', color: '#8B5CF6', words: ['SPACE', 'MOON', 'LANDER'] },
-  { label: 'SPORT', color: '#EF4444', words: ['TITLE', 'RACE', 'HEATS'] },
-  { label: 'AI & RESEARCH', color: '#3B82F6', words: ['MODELS', 'BENCH', 'SHIFT'] },
-  { label: 'BUSINESS', color: '#94A3B8', words: ['EARNINGS', 'RATES', 'DEALS'] },
+  // Jan 2026 Context:
+  // US/Global politics heating up regarding trade; Budget cycles.
+  { label: 'NEWS', color: '#F59E0B', words: ['BUDGET', 'TARIFF', 'ACCORD'] },
+  
+  // The "Analog/Offline" trend is peaking as a counter-culture to AI.
+  { label: 'TRENDS', color: '#10B981', words: ['ANALOG', 'DETOX', 'RETRO'] },
+  
+  // NASA Lunar Gateway & Fusion milestones.
+  { label: 'SCIENCE', color: '#8B5CF6', words: ['GATEWAY', 'FUSION', 'QUANTA'] },
+  
+  // Milano Cortina 2026 Winter Olympics start Feb 6th. Jan is all about qualifiers.
+  { label: 'SPORT', color: '#EF4444', words: ['WINTER', 'TORCH', 'TRIALS'] },
+  
+  // The shift from LLMs (Models) to Autonomous Agents.
+  { label: 'AI & RESEARCH', color: '#3B82F6', words: ['AGENTS', 'REASON', 'ETHICS'] },
+  
+  // Jan is Earnings season; Crypto regulation & Bond Yields dominate.
+  { label: 'BUSINESS', color: '#94A3B8', words: ['EARNINGS', 'CRYPTO', 'YIELD'] },
 ];
 
 function OrbsInlineSVG() {
   // --- LAYOUT MATH ---
   const cardW = 270;
-  const cardH = 132;
+  
+  // INCREASED HEIGHT: Was 132, now 160 to prevent text clipping.
+  const cardH = 160; 
+  
   const gapX = 44;
   const gapY = 32;
   const sidePad = 44;
@@ -27,8 +42,9 @@ function OrbsInlineSVG() {
   // Width: (3 cards * 270) + (2 gaps * 44) + (2 side pads * 44) = 986
   const W = 986; 
   
-  // Height: topPad + (2 rows * 132) + (1 gap * 32) + bottomPad (42) = 380
-  const H = 380;
+  // Height: topPad + (2 rows * cardH) + (1 gapY) + bottomPad
+  // 42 + 320 + 32 + 42 = 436
+  const H = 436;
   
   const outerR = 36;
 
@@ -107,9 +123,13 @@ function OrbsInlineSVG() {
           const titleY = y + 42;
 
           const wordX = x + 78;
-          const wordY1 = y + 78;
-          const wordY2 = y + 104;
-          const wordY3 = y + 130;
+          
+          // Adjusted Y positions for taller card (160px height)
+          // Previous: 78, 104, 130
+          // New: 80, 110, 140 (leaves 20px bottom padding)
+          const wordY1 = y + 80;
+          const wordY2 = y + 110;
+          const wordY3 = y + 140;
 
           return (
             <g key={orb.label} className="orbCard">
@@ -224,7 +244,6 @@ export default function Orbs() {
             }`}
           >
             <div className="relative">
-              {/* Removed white background logic; this is now a tight wrapper around the SVG */}
               <div className="rounded-3xl overflow-hidden shadow-2xl">
                 <OrbsInlineSVG />
               </div>
