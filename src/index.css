@@ -125,3 +125,57 @@
     transform: translateY(0);
   }
 }
+
+@media (prefers-reduced-motion: no-preference) {
+  .pricing-signal-line {
+    position: absolute;
+    top: 50%;
+    left: -40%;
+    width: 60%;
+    height: 2px;
+    transform: translateY(-50%);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(59, 130, 246, 0.35),
+      transparent
+    );
+    filter: blur(0.3px);
+    animation: pricingSignalSweep 1.6s ease-out forwards;
+  }
+
+  .pricing-signal-pulse {
+    position: absolute;
+    top: 50%;
+    left: 62%;
+    width: 10px;
+    height: 10px;
+    transform: translate(-50%, -50%);
+    border-radius: 9999px;
+    background: rgba(59, 130, 246, 0.35);
+    opacity: 0;
+    animation: pricingSignalPulse 0.9s ease-out forwards;
+    animation-delay: 1.35s;
+  }
+
+  @keyframes pricingSignalSweep {
+    to {
+      left: 65%;
+    }
+  }
+
+  @keyframes pricingSignalPulse {
+    0% {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.6);
+    }
+    30% {
+      opacity: 0.6;
+    }
+    100% {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(4);
+    }
+  }
+}
+
