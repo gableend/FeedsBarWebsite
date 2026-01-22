@@ -3,21 +3,18 @@ import { useScrollAnimation } from '../hooks/useScrollAnimation';
 
 type Topic = {
   name: string;
-  // Brand-ish colors (tweak hex if you want to match your exact palette)
   color: string;
-  // Each “signal” is 3 stacked words
   signals: [string, string, string][];
 };
 
-// Keep these short, punchy, and in all caps like your UI
 const orbTopics: Topic[] = [
   {
     name: 'News',
     color: '#F59E0B',
     signals: [
-      ['TRUMP', 'WAR', 'NATO'],
       ['GAZA', 'AID', 'CEASEFIRE'],
       ['ELECTION', 'BUDGET', 'STRIKE'],
+      ['TRUMP', 'WAR', 'NATO'],
     ],
   },
   {
@@ -51,9 +48,9 @@ const orbTopics: Topic[] = [
     name: 'AI & Research',
     color: '#3B82F6',
     signals: [
-      ['AI', 'PSYCHOSIS', 'RISING'],
       ['AGENTS', 'TOOLS', 'RUSH'],
       ['MODELS', 'BENCH', 'SHIFT'],
+      ['AI', 'SAFETY', 'POLICY'],
     ],
   },
 ];
@@ -73,42 +70,39 @@ function useRotatingSignal(signals: [string, string, string][], intervalMs = 220
 }
 
 function OrbBadge({
-  label = 'FUTURE SIGNALS',
+  label,
   color,
   words,
-  compact = false,
 }: {
-  label?: string;
+  label: string;
   color: string;
   words: [string, string, string];
-  compact?: boolean;
 }) {
-  // Sizes tuned to read nicely in the bar
-  const width = compact ? 210 : 260;
-  const height = compact ? 62 : 74;
-
+  // Keep viewBox consistent; size controlled by CSS for responsive layout
   return (
     <svg
-      width={width}
-      height={height}
       viewBox="0 0 260 74"
       fill="none"
       role="img"
       aria-label={`${label}: ${words.join(', ')}`}
-      className="select-none"
+      className="w-full h-auto"
+      preserveAspectRatio="xMinYMid meet"
     >
-      {/* Soft rounded backdrop */}
-      <rect x="0.5" y="0.5" width="259" height="73" rx="14" fill="rgba(0,0,0,0.35)" stroke="rgba(255,255,255,0.10)" />
+      <rect
+        x="0.5"
+        y="0.5"
+        width="259"
+        height="73"
+        rx="14"
+        fill="rgba(0,0,0,0.40)"
+        stroke="rgba(255,255,255,0.10)"
+      />
 
       {/* Orb */}
       <g transform="translate(14 14)">
-        {/* outer glow */}
         <circle cx="18" cy="23" r="18" fill={color} opacity="0.18" />
-        {/* ring */}
-        <circle cx="18" cy="23" r="14.5" stroke={color} strokeWidth="2.5" opacity="0.9" />
-        {/* core */}
+        <circle cx="18" cy="23" r="14.5" stroke={color} strokeWidth="2.5" opacity="0.95" />
         <circle cx="18" cy="23" r="9.5" fill={color} opacity="0.85" />
-        {/* highlight */}
         <circle cx="13" cy="18" r="3.2" fill="white" opacity="0.55" />
       </g>
 
@@ -122,10 +116,9 @@ function OrbBadge({
           fontFamily="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace"
           letterSpacing="0.12em"
         >
-          {label}
+          {label.toUpperCase()}
         </text>
 
-        {/* 3-line signal */}
         <text
           x="0"
           y="30"
@@ -163,8 +156,6 @@ function OrbBadge({
 
 export default function Orbs() {
   const { ref: sectionRef, isVisible } = useScrollAnimation<HTMLElement>();
-
-  // Pre-compute rotating signals per topic
   const signalsByTopic = useMemo(() => orbTopics.map((t) => t.signals), []);
   const rotating = orbTopics.map((t, i) => useRotatingSignal(signalsByTopic[i] ?? [], 2200 + i * 150));
 
@@ -172,7 +163,7 @@ export default function Orbs() {
     <section id="features" className="py-20 lg:py-28" ref={sectionRef}>
       <div className="container-wide">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          {/* Explanation */}
+          {/* Copy */}
           <div
             className={`order-2 lg:order-1 transition-all duration-700 ${
               isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
@@ -216,40 +207,36 @@ export default function Orbs() {
             </div>
           </div>
 
-          {/* Visual demo */}
+          {/* Visual */}
           <div
             className={`order-1 lg:order-2 transition-all duration-700 delay-150 ${
               isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
             }`}
           >
             <div className="relative">
-              {/* “Desktop strip” mock */}
               <div className="rounded-2xl border border-neutral-200 bg-white/70 backdrop-blur-sm shadow-xl overflow-hidden">
-                {/* top rail */}
-                <div className="px-4 py-3 bg-neutral-950">
-                  <div className="flex items-center gap-3 overflow-x-auto no-scrollbar">
+                {/* Dark “desktop strip” */}
+                <div className="px-4 py-4 bg-neutral-950">
+                  {/* Responsive grid so we never “miss” orbs */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                     {orbTopics.map((t, idx) => (
                       <div
                         key={t.name}
-                        className="shrink-0 transition-all duration-200 hover:-translate-y-0.5"
+                        className="transition-all duration-200 hover:-translate-y-0.5"
                         style={{
                           filter: 'drop-shadow(0 14px 22px rgba(0,0,0,0.35))',
                         }}
-                        aria-label={t.name}
                         title={t.name}
                       >
-                        <OrbBadge
-                          label={t.name.toUpperCase()}
-                          color={t.color}
-                          words={rotating[idx] as [string, string, string]}
-                          compact
-                        />
+                        {/* Keep cards from getting too tall on small screens */}
+                        <div className="w-full max-w-[320px]">
+                          <OrbBadge label={t.name} color={t.color} words={rotating[idx] as [string, string, string]} />
+                        </div>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                {/* subtle “glow” area */}
                 <div className="px-6 py-6">
                   <p className="text-sm text-neutral-600">
                     Orbs rotate every few seconds. A click opens the full story in your browser.
@@ -257,9 +244,13 @@ export default function Orbs() {
                 </div>
               </div>
 
-              {/* Ambient glow behind */}
-              <div className="absolute -inset-6 rounded-3xl -z-10 blur-3xl"
-                   style={{ background: 'radial-gradient(60% 60% at 30% 30%, rgba(59,130,246,0.10), transparent 60%), radial-gradient(60% 60% at 70% 40%, rgba(139,92,246,0.10), transparent 60%), radial-gradient(60% 60% at 50% 80%, rgba(245,158,11,0.10), transparent 60%)' }}
+              {/* Ambient glow */}
+              <div
+                className="absolute -inset-6 rounded-3xl -z-10 blur-3xl"
+                style={{
+                  background:
+                    'radial-gradient(60% 60% at 30% 30%, rgba(59,130,246,0.10), transparent 60%), radial-gradient(60% 60% at 70% 40%, rgba(139,92,246,0.10), transparent 60%), radial-gradient(60% 60% at 50% 80%, rgba(245,158,11,0.10), transparent 60%)',
+                }}
               />
             </div>
           </div>
