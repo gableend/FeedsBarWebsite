@@ -16,7 +16,7 @@ export default function Control() {
           >
             <div className="relative overflow-hidden rounded-3xl border border-neutral-200 bg-white shadow-sm">
               <img
-                src="/images/source-control.png"
+                src="/images/control.png"
                 alt="FeedsBar controls"
                 className="w-full h-auto"
                 loading="lazy"
