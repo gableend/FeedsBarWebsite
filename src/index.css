@@ -172,12 +172,12 @@
 /* Animations only when motion is allowed */
 @media (prefers-reduced-motion: no-preference) {
   .pricing-signal-line {
-    animation: pricingSignalSweep 1.6s ease-out forwards;
+    animation: pricingSignalSweep 2.4s ease-out forwards;
   }
 
   .pricing-signal-pulse {
-    animation: pricingSignalPulse 0.9s ease-out forwards;
-    animation-delay: 1.35s;
+    animation: pricingSignalPulse 1.2s ease-out forwards;
+    animation-delay: 2.05s;
   }
 }
 
