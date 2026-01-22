@@ -38,7 +38,6 @@
   .btn-secondary {
     @apply px-6 py-3 text-brand-700 hover:text-brand-900 transition-colors;
   }
-}
 
 @layer utilities {
   .fade-in {
@@ -125,24 +124,6 @@
     transform: translateY(0);
   }
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .pricing-signal-line {
-    position: absolute;
-    top: 50%;
-    left: -40%;
-    width: 60%;
-    height: 2px;
-    transform: translateY(-50%);
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(59, 130, 246, 0.35),
-      transparent
-    );
-    filter: blur(0.3px);
-    animation: pricingSignalSweep 1.6s ease-out forwards;
-  }
 
 /* =========================
    Pricing signal animation
