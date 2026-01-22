@@ -8,7 +8,8 @@ const features = [
 ];
 
 export default function Pricing() {
-  const { ref: sectionRef, isVisible } = useScrollAnimation<HTMLElement>();
+  // Trigger when the card comes into view (not the section)
+  const { ref: cardRef, isVisible } = useScrollAnimation<HTMLDivElement>();
 
   const handleCTAClick = () => {
     if (IS_LIVE) {
@@ -19,12 +20,8 @@ export default function Pricing() {
   };
 
   return (
-    <section
-      id="pricing"
-      className="relative py-20 lg:py-28 bg-gray-50 overflow-hidden"
-      ref={sectionRef}
-    >
-      {/* Full-width signal line (viewport width) */}
+    <section id="pricing" className="relative py-20 lg:py-28 bg-gray-50 overflow-hidden">
+      {/* Full-width signal line (viewport width), triggered by card visibility */}
       {isVisible && (
         <div className="pointer-events-none absolute inset-0 overflow-visible">
           <div className="pricing-signal-track">
@@ -49,6 +46,7 @@ export default function Pricing() {
 
         <div className="max-w-md mx-auto">
           <div
+            ref={cardRef}
             className={`relative bg-white rounded-2xl border border-neutral-200 p-8 lg:p-10
               shadow-xl shadow-brand-900/5 transition-all duration-700 delay-150
               ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-8 scale-95'}
