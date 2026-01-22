@@ -8,7 +8,7 @@ export default function Header() {
           <img
             src="/images/feeds-mark-core.svg"
             alt="FeedBar"
-            className="h-7 w-auto md:h-8"
+            className="h-6 w-auto md:h-7"
           />
           <span className="text-sm font-semibold tracking-tight text-white md:text-base">
             FeedBar
@@ -34,7 +34,7 @@ export default function Header() {
 
           <a
             href="#notify"
-            className="rounded-lg bg-white/10 px-4 py-2 text-sm font-medium text-white hover:bg-white/15 transition-colors"
+            className="rounded-lg bg-white/15 px-4 py-2 text-sm font-medium text-white ring-1 ring-white/10 hover:bg-white/20 hover:ring-white/15 transition-colors"
           >
             Join waitlist
           </a>
