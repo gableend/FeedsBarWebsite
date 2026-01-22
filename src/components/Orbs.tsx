@@ -231,12 +231,10 @@ export default function Orbs() {
               isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
             }`}
           >
-            <div className="relative">
-              <div className="rounded-3xl overflow-hidden shadow-2xl">
-                <OrbsInlineSVG />
-              </div>
+            <div className="rounded-3xl overflow-hidden">
+  <OrbsInlineSVG />
+</div>
 
-              <div className="absolute -inset-6 -z-10 rounded-3xl blur-2xl bg-gradient-to-r from-category-blue/10 via-category-purple/10 to-category-gold/10" />
             </div>
           </div>
         </div>
