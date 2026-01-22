@@ -12,14 +12,15 @@ export default function Hero() {
           </p>
 
           {/* Pills */}
-          <div className="mt-7 flex flex-wrap gap-3">
-            <span className="inline-flex items-center rounded-full border border-brand-200 bg-white px-4 py-2 text-sm text-brand-700">
+          <div className="mt-7 flex gap-3 overflow-x-auto whitespace-nowrap pb-1">
+            <div className="mt-7 flex gap-3 overflow-x-auto whitespace-nowrap pb-1">
+            <span className="inline-flex shrink-0 items-center rounded-full border border-brand-200 bg-white px-4 py-2 text-sm text-brand-700">
               Ambient awareness, not alerts
             </span>
-            <span className="inline-flex items-center rounded-full border border-brand-200 bg-white px-4 py-2 text-sm text-brand-700">
+            <span className="inline-flex shrink-0 items-center rounded-full border border-brand-200 bg-white px-4 py-2 text-sm text-brand-700">
               Curated, high-quality sources
             </span>
-            <span className="inline-flex items-center rounded-full border border-brand-200 bg-white px-4 py-2 text-sm text-brand-700">
+            <span className="inline-flex shrink-0 items-center rounded-full border border-brand-200 bg-white px-4 py-2 text-sm text-brand-700">
               Topic Orbs that reflect what’s moving
             </span>
           </div>
