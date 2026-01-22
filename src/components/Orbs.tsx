@@ -7,24 +7,12 @@ type Orb = {
 };
 
 const ORBS: Orb[] = [
-  // Jan 2026 Context:
-  // US/Global politics heating up regarding trade; Budget cycles.
-  { label: 'NEWS', color: '#F59E0B', words: ['BUDGET', 'TARIFF', 'ACCORD'] },
-  
-  // The "Analog/Offline" trend is peaking as a counter-culture to AI.
-  { label: 'TRENDS', color: '#10B981', words: ['ANALOG', 'DETOX', 'RETRO'] },
-  
-  // NASA Lunar Gateway & Fusion milestones.
-  { label: 'SCIENCE', color: '#8B5CF6', words: ['GATEWAY', 'FUSION', 'QUANTA'] },
-  
-  // Milano Cortina 2026 Winter Olympics start Feb 6th. Jan is all about qualifiers.
-  { label: 'SPORT', color: '#EF4444', words: ['WINTER', 'TORCH', 'TRIALS'] },
-  
-  // The shift from LLMs (Models) to Autonomous Agents.
-  { label: 'AI & RESEARCH', color: '#3B82F6', words: ['AGENTS', 'REASON', 'ETHICS'] },
-  
-  // Jan is Earnings season; Crypto regulation & Bond Yields dominate.
-  { label: 'BUSINESS', color: '#94A3B8', words: ['EARNINGS', 'CRYPTO', 'YIELD'] },
+  { label: 'NEWS', color: '#F59E0B', words: ['GREENLAND', 'TARIFFS', 'NATO'] },
+  { label: 'TRENDS', color: '#10B981', words: ['OFFLINE', 'SLOWLIVING', 'CRAFT'] },
+  { label: 'SCIENCE', color: '#8B5CF6', words: ['LUNAR', 'FUSION', 'CYBERAI'] },
+  { label: 'SPORT', color: '#EF4444', words: ['OLYMPIC', 'QUALIFIERS', 'INJURY'] },
+  { label: 'AI & RESEARCH', color: '#3B82F6', words: ['AGENTS', 'AUTONOMY', 'SECURITY'] },
+  { label: 'BUSINESS', color: '#94A3B8', words: ['MARKETS', 'RISKOFF', 'CRYPTO'] },
 ];
 
 function OrbsInlineSVG() {
