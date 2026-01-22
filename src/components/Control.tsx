@@ -4,7 +4,7 @@ export default function Control() {
   const { ref: sectionRef, isVisible } = useScrollAnimation<HTMLElement>();
 
   return (
-    <section id="control" className="py-20 lg:py-28" ref={sectionRef}>
+      <section id="control" className="pt-12 pb-20 lg:pt-16 lg:pb-28">
       <div className="container-wide">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
           {/* Visual (left) */}
