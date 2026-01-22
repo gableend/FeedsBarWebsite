@@ -24,23 +24,12 @@ function OrbsInlineSVG() {
   const sidePad = 44;
   const topPad = 42;
 
-  // Calculate required width to ensure symmetry
-  // (3 cards * 270) + (2 gaps * 44) + (2 paddings * 44) = 986
+  // Width: (3 cards * 270) + (2 gaps * 44) + (2 side pads * 44) = 986
   const W = 986; 
   
-  // Calculate where the cards actually end
-  // topPad + (2 rows * 132) + (1 gap * 32) = 42 + 264 + 32 = 338
-  const contentBottomY = topPad + (cardH * 2) + gapY;
-
-  // Black area needs to cover the cards plus some bottom padding
-  const blackH = contentBottomY + 42; 
+  // Height: topPad + (2 rows * 132) + (1 gap * 32) + bottomPad (42) = 380
+  const H = 380;
   
-  // White area starts slightly overlapping the black for the rounded blend
-  const whiteY = blackH - 24;
-  
-  // Total Height
-  const H = whiteY + 160; 
-  const whiteH = H - whiteY;
   const outerR = 36;
 
   const positions = [
@@ -79,11 +68,6 @@ function OrbsInlineSVG() {
           <stop offset="100%" stopColor="#070708" />
         </linearGradient>
 
-        <linearGradient id="whiteFill" x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0%" stopColor="#FFFFFF" />
-          <stop offset="100%" stopColor="#F7F7F8" />
-        </linearGradient>
-
         <style>
           {`
             .orbCard { filter: drop-shadow(0px 12px 26px rgba(0,0,0,0.28)); }
@@ -104,14 +88,11 @@ function OrbsInlineSVG() {
         </style>
       </defs>
 
-      {/* Outer rounded container with shadow */}
+      {/* Main Container */}
       <g filter="url(#softShadow)">
         
-        {/* White area (Background for the bottom part) */}
-        <rect x="0" y={whiteY} width={W} height={whiteH} rx={outerR} fill="url(#whiteFill)" />
-        
-        {/* Black area (Top part) */}
-        <rect x="0" y="0" width={W} height={blackH} rx={outerR} fill="url(#blackGlow)" />
+        {/* Single Black Background Rect */}
+        <rect x="0" y="0" width={W} height={H} rx={outerR} fill="url(#blackGlow)" />
 
         {/* Orb cards */}
         {ORBS.map((orb, i) => {
@@ -180,30 +161,6 @@ function OrbsInlineSVG() {
             </g>
           );
         })}
-
-        {/* Inner white stroke for the white card area */}
-        <rect
-          x="24"
-          y={whiteY + 18}
-          width={W - 48}
-          height={whiteH - 36}
-          rx={24}
-          fill="none"
-          stroke="rgba(17,24,39,0.12)"
-          strokeWidth="1"
-        />
-
-        {/* Use foreignObject to handle text wrapping properly.
-          This prevents the text from bleeding out of the container.
-        */}
-        <foreignObject x="40" y={whiteY + 18} width={W - 80} height={whiteH - 36}>
-          <div className="h-full flex items-center justify-center text-center px-4">
-            <p className="text-[28px] font-semibold text-gray-800 leading-snug">
-              Orbs subtly rotate in your FeedsBar as the global narrative changes.
-            </p>
-          </div>
-        </foreignObject>
-        
       </g>
     </svg>
   );
@@ -267,6 +224,7 @@ export default function Orbs() {
             }`}
           >
             <div className="relative">
+              {/* Removed white background logic; this is now a tight wrapper around the SVG */}
               <div className="rounded-3xl overflow-hidden shadow-2xl">
                 <OrbsInlineSVG />
               </div>
