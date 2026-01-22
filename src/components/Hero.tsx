@@ -10,21 +10,16 @@ export default function Hero() {
           <p className="mt-6 text-lg text-brand-700 max-w-2xl">
             FeedsBar brings high-signal headlines to your Mac desktop. Quietly. Continuously.
           </p>
-
-          {/* Pills */}
           <div className="mt-7 flex gap-3 overflow-x-auto whitespace-nowrap pb-1">
-            <span className="inline-flex shrink-0 items-center gap-2 rounded-full border border-neutral-200/70 bg-white/70 px-4 py-2 text-sm font-medium text-brand-900 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-white/55">
-              <span className="h-1.5 w-1.5 rounded-full bg-brand-900/35" />
-                Ambient awareness, not alerts
+            <span className="inline-flex shrink-0 items-center rounded-full border border-brand-200 bg-white px-4 py-2 text-sm text-brand-700">
+              Ambient awareness, not alerts
             </span>
-            <span className="inline-flex shrink-0 items-center gap-2 rounded-full border border-neutral-200/70 bg-white/70 px-4 py-2 text-sm font-medium text-brand-900 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-white/55">
-              <span className="h-1.5 w-1.5 rounded-full bg-brand-900/35" />
-                Curated, high-quality sources
+            <span className="inline-flex shrink-0 items-center rounded-full border border-brand-200 bg-white px-4 py-2 text-sm text-brand-700">
+              Curated, high-quality sources
             </span>
-             <span className="inline-flex shrink-0 items-center gap-2 rounded-full border border-neutral-200/70 bg-white/70 px-4 py-2 text-sm font-medium text-brand-900 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-white/55">
-              <span className="h-1.5 w-1.5 rounded-full bg-brand-900/35" />
-                Topic Orbs that reflect what’s moving
-            </span>       
+            <span className="inline-flex shrink-0 items-center rounded-full border border-brand-200 bg-white px-4 py-2 text-sm text-brand-700">
+              Topic Orbs that reflect what’s moving
+            </span>
           </div>
 
           {/* CTAs */}
