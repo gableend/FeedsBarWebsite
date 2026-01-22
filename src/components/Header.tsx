@@ -20,11 +20,11 @@ export default function Header() {
         <nav className="flex items-center justify-between h-16 lg:h-[72px]">
           {/* Logo */}
           <a href="/" className="flex items-center gap-3 group">
-            <img
-              src="/images/feeds-mark-core.svg"
-              alt="FeedsBar"
-              className="h-9 w-auto"
-            />
+           <img
+  src="/images/feeds-mark-core.svg"
+  alt="FeedsBar"
+  className="h-7 w-auto"
+/>
             <span className="text-lg font-semibold text-white tracking-tight">
               feeds.bar
             </span>
