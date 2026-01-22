@@ -16,36 +16,41 @@ const ORBS: Orb[] = [
 ];
 
 function OrbsInlineSVG() {
-  // Layout tuned to avoid cropping and give the black area more breathing room.
-  // viewBox is wide so it scales nicely in responsive containers.
-  const W = 960;
-  const H = 560;
-
-  const outerR = 36;
-
-  const topPad = 42;
-  const sidePad = 44;
-
-  const blackH = 330; // larger black area as requested
-  const whiteY = blackH - 16;
-  const whiteH = H - whiteY;
-
+  // --- LAYOUT MATH ---
   const cardW = 270;
-  const cardH = 132; // taller cards
+  const cardH = 132;
   const gapX = 44;
   const gapY = 32;
+  const sidePad = 44;
+  const topPad = 42;
 
-  const startX = sidePad;
-  const startY = topPad;
+  // Calculate required width to ensure symmetry
+  // (3 cards * 270) + (2 gaps * 44) + (2 paddings * 44) = 986
+  const W = 986; 
+  
+  // Calculate where the cards actually end
+  // topPad + (2 rows * 132) + (1 gap * 32) = 42 + 264 + 32 = 338
+  const contentBottomY = topPad + (cardH * 2) + gapY;
+
+  // Black area needs to cover the cards plus some bottom padding
+  const blackH = contentBottomY + 42; 
+  
+  // White area starts slightly overlapping the black for the rounded blend
+  const whiteY = blackH - 24;
+  
+  // Total Height
+  const H = whiteY + 160; 
+  const whiteH = H - whiteY;
+  const outerR = 36;
 
   const positions = [
-    { x: startX + 0 * (cardW + gapX), y: startY + 0 * (cardH + gapY) },
-    { x: startX + 1 * (cardW + gapX), y: startY + 0 * (cardH + gapY) },
-    { x: startX + 2 * (cardW + gapX), y: startY + 0 * (cardH + gapY) },
+    { x: sidePad + 0 * (cardW + gapX), y: topPad + 0 * (cardH + gapY) },
+    { x: sidePad + 1 * (cardW + gapX), y: topPad + 0 * (cardH + gapY) },
+    { x: sidePad + 2 * (cardW + gapX), y: topPad + 0 * (cardH + gapY) },
 
-    { x: startX + 0 * (cardW + gapX), y: startY + 1 * (cardH + gapY) },
-    { x: startX + 1 * (cardW + gapX), y: startY + 1 * (cardH + gapY) },
-    { x: startX + 2 * (cardW + gapX), y: startY + 1 * (cardH + gapY) },
+    { x: sidePad + 0 * (cardW + gapX), y: topPad + 1 * (cardH + gapY) },
+    { x: sidePad + 1 * (cardW + gapX), y: topPad + 1 * (cardH + gapY) },
+    { x: sidePad + 2 * (cardW + gapX), y: topPad + 1 * (cardH + gapY) },
   ];
 
   return (
@@ -86,7 +91,6 @@ function OrbsInlineSVG() {
             .orbStroke2 { stroke: rgba(255,255,255,0.16); }
             .label { letter-spacing: 0.16em; font-weight: 600; }
             .word { font-weight: 800; letter-spacing: 0.02em; }
-            /* Subtle “rotation” feel via staggered emphasis. */
             @keyframes pulseWord {
               0% { opacity: 0.55; }
               10% { opacity: 1; }
@@ -100,10 +104,13 @@ function OrbsInlineSVG() {
         </style>
       </defs>
 
-      {/* Outer rounded container */}
+      {/* Outer rounded container with shadow */}
       <g filter="url(#softShadow)">
-        <rect x="0" y="0" width={W} height={H} rx={outerR} fill="#FFFFFF" />
-        {/* Black area */}
+        
+        {/* White area (Background for the bottom part) */}
+        <rect x="0" y={whiteY} width={W} height={whiteH} rx={outerR} fill="url(#whiteFill)" />
+        
+        {/* Black area (Top part) */}
         <rect x="0" y="0" width={W} height={blackH} rx={outerR} fill="url(#blackGlow)" />
 
         {/* Orb cards */}
@@ -174,17 +181,7 @@ function OrbsInlineSVG() {
           );
         })}
 
-        {/* White area */}
-        <rect
-          x="0"
-          y={whiteY}
-          width={W}
-          height={whiteH}
-          rx={outerR}
-          fill="url(#whiteFill)"
-        />
-
-        {/* Inner white stroke, to match your card styling */}
+        {/* Inner white stroke for the white card area */}
         <rect
           x="24"
           y={whiteY + 18}
@@ -196,16 +193,17 @@ function OrbsInlineSVG() {
           strokeWidth="1"
         />
 
-        {/* White area text, centered and not cropped */}
-        <text
-          x="72"
-          y={whiteY + 92}
-          fill="rgba(17,24,39,0.70)"
-          fontSize="28"
-          fontWeight="600"
-        >
-          Orbs subtly rotate in your FeedsBar as the global narrative changes.
-        </text>
+        {/* Use foreignObject to handle text wrapping properly.
+          This prevents the text from bleeding out of the container.
+        */}
+        <foreignObject x="40" y={whiteY + 18} width={W - 80} height={whiteH - 36}>
+          <div className="h-full flex items-center justify-center text-center px-4">
+            <p className="text-[28px] font-semibold text-gray-800 leading-snug">
+              Orbs subtly rotate in your FeedsBar as the global narrative changes.
+            </p>
+          </div>
+        </foreignObject>
+        
       </g>
     </svg>
   );
