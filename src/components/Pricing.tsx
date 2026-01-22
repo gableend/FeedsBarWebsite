@@ -5,7 +5,6 @@ const features = [
   'All features at launch',
   'All 1.x updates included',
   'No subscription required',
-  'Works offline after activation',
 ];
 
 export default function Pricing() {
