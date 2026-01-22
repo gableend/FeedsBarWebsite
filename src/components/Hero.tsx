@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { IS_LIVE, PADDLE_CHECKOUT_URL } from '../config';
 
-const valueBullets = [
+const valuePills = [
   'Ambient awareness, not alerts',
   'Curated, high-quality sources',
   'Topic Orbs with rotating keywords',
@@ -46,20 +46,18 @@ export default function Hero() {
             FeedBar brings high-signal headlines and topics to your Mac desktop, quietly, continuously, and without subscriptions.
           </p>
 
-          {/* Value bullets (centered block, left-aligned text) */}
-          <div className="mt-8 mx-auto max-w-md">
-            <ul className="space-y-3 text-left">
-              {valueBullets.map((bullet, index) => (
-                <li
-                  key={bullet}
-                  className="flex items-center gap-3 text-neutral-700 fade-in-up"
-                  style={{ animationDelay: `${0.2 + index * 0.1}s` }}
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-neutral-400 flex-shrink-0" />
-                  <span className="text-sm">{bullet}</span>
-                </li>
-              ))}
-            </ul>
+          {/* Value pills (centered, calm, wrapping) */}
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-2 sm:gap-3">
+            {valuePills.map((pill, index) => (
+              <div
+                key={pill}
+                className="fade-in-up inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-neutral-50 px-3 py-1.5 text-sm text-neutral-700"
+                style={{ animationDelay: `${0.2 + index * 0.1}s` }}
+              >
+                <span className="h-1.5 w-1.5 rounded-full bg-neutral-400" />
+                <span className="whitespace-nowrap">{pill}</span>
+              </div>
+            ))}
           </div>
 
           {/* CTAs (centered) */}
@@ -81,7 +79,7 @@ export default function Hero() {
         </div>
 
         {/* Product visual (below copy, larger) */}
-        <div className="mt-14 lg:mt-16 slide-in-right" style={{ animationDelay: '0.3s' }}>
+        <div className="mt-14 lg:mt-16" style={{ animationDelay: '0.3s' }}>
           <div className="relative mx-auto max-w-6xl">
             {prefersReducedMotion ? (
               <img
@@ -103,7 +101,7 @@ export default function Hero() {
               </video>
             )}
 
-            {/* Optional subtle glow (kept, but toned to work at larger size) */}
+            {/* Optional subtle glow */}
             <div className="pointer-events-none absolute -top-6 right-10 w-28 h-28 rounded-full bg-gradient-to-br from-category-blue/15 to-category-teal/15 blur-3xl" />
             <div className="pointer-events-none absolute -bottom-10 left-10 w-32 h-32 rounded-full bg-gradient-to-br from-accent/10 to-category-gold/10 blur-3xl" />
           </div>
