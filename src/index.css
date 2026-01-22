@@ -38,6 +38,7 @@
   .btn-secondary {
     @apply px-6 py-3 text-brand-700 hover:text-brand-900 transition-colors;
   }
+}
 
 @layer utilities {
   .fade-in {
@@ -127,82 +128,75 @@
 
 /* =========================
    Pricing signal animation
+   Works with Pricing.tsx (track + line + pulse)
    ========================= */
 
-/* Full-width track that spans the viewport */
 .pricing-signal-track {
   position: absolute;
   top: 50%;
-  left: 0;
+  left: 50%;
   width: 100vw;
   height: 2px;
-  transform: translateY(-50%);
+  transform: translate(-50%, -50%);
   overflow: visible;
   pointer-events: none;
-  z-index: 1;
 }
 
-/* Animated signal line */
 .pricing-signal-line {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 0;
+  position: relative;
+  left: -100%;
+  width: 100%;
+  height: 2px;
   background: linear-gradient(
     90deg,
-    transparent 0%,
-    rgba(79, 140, 255, 0.35) 30%,
-    rgba(79, 140, 255, 0.75) 60%,
-    rgba(79, 140, 255, 1) 85%,
-    transparent 100%
+    transparent,
+    rgba(59, 130, 246, 0.35),
+    transparent
   );
-  animation: pricing-signal-sweep 1.4s ease-out forwards;
+  filter: blur(0.3px);
 }
 
-/* Sweep from left edge → pricing card center */
-@keyframes pricing-signal-sweep {
-  from {
-    width: 0;
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  to {
-    width: 55%;
-    opacity: 0.9;
-  }
-}
-
-/* Pulse that resolves on the card */
 .pricing-signal-pulse {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 14px;
-  height: 14px;
-  background: rgba(79, 140, 255, 1);
-  border-radius: 999px;
+  width: 10px;
+  height: 10px;
   transform: translate(-50%, -50%);
-  box-shadow:
-    0 0 0 rgba(79, 140, 255, 0.6);
-  animation: pricing-pulse 1.2s ease-out 0.9s forwards;
-  z-index: 2;
+  border-radius: 9999px;
+  background: rgba(59, 130, 246, 0.35);
+  opacity: 0;
+  pointer-events: none;
 }
 
-/* Pulse expansion */
-@keyframes pricing-pulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(79, 140, 255, 0.6);
-    opacity: 1;
+/* Animations only when motion is allowed */
+@media (prefers-reduced-motion: no-preference) {
+  .pricing-signal-line {
+    animation: pricingSignalSweep 1.6s ease-out forwards;
   }
-  70% {
-    box-shadow: 0 0 0 28px rgba(79, 140, 255, 0);
-    opacity: 0.8;
+
+  .pricing-signal-pulse {
+    animation: pricingSignalPulse 0.9s ease-out forwards;
+    animation-delay: 1.35s;
+  }
+}
+
+@keyframes pricingSignalSweep {
+  to {
+    left: 0;
+  }
+}
+
+@keyframes pricingSignalPulse {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.6);
+  }
+  30% {
+    opacity: 0.6;
   }
   100% {
-    box-shadow: 0 0 0 42px rgba(79, 140, 255, 0);
     opacity: 0;
+    transform: translate(-50%, -50%) scale(4);
   }
 }
