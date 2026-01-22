@@ -8,14 +8,16 @@ export default function Footer() {
       <div className="container-wide">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           {/* Logo */}
-          <div className="flex items-center gap-2.5">
+          <a href="/" className="flex items-center gap-2.5 group">
             <img
               src="/images/feeds-mark-core.svg"
-              alt="FeedBar"
-              className="h-14 w-auto"
+              alt="FeedsBar"
+              className="h-8 w-auto"
             />
-            <span className="text-sm font-semibold text-brand-900">FeedBar</span>
-          </div>
+            <span className="text-sm font-semibold text-brand-900 group-hover:text-brand-900 transition-colors">
+              feeds.bar
+            </span>
+          </a>
 
           {/* Links */}
           <div className="flex items-center gap-6 text-sm">
@@ -41,7 +43,7 @@ export default function Footer() {
 
           {/* Copyright */}
           <p className="text-sm text-neutral-400">
-            &copy; {currentYear} FeedBar. All rights reserved.
+            © {currentYear} FeedsBar. All rights reserved.
           </p>
         </div>
       </div>
