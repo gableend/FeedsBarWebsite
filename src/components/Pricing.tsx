@@ -1,5 +1,5 @@
+import { useEffect, useRef, useState } from 'react';
 import { IS_LIVE, PADDLE_CHECKOUT_URL, PRICE } from '../config';
-import { useScrollAnimation } from '../hooks/useScrollAnimation';
 
 const features = [
   'All features at launch',
@@ -8,8 +8,33 @@ const features = [
 ];
 
 export default function Pricing() {
-  // Trigger when the card comes into view (not the section)
-  const { ref: cardRef, isVisible } = useScrollAnimation<HTMLDivElement>();
+  const cardRef = useRef<HTMLDivElement | null>(null);
+  const [runSignal, setRunSignal] = useState(false);
+
+  useEffect(() => {
+    const el = cardRef.current;
+    if (!el) return;
+
+    // Fire later: when the card is clearly on screen, not just touching.
+    // - threshold 0.55 means ~55% of the card must be visible.
+    // - rootMargin nudges the "active zone" downward slightly.
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (entry?.isIntersecting) {
+          setRunSignal(true);
+          observer.disconnect(); // run once
+        }
+      },
+      {
+        threshold: 0.55,
+        rootMargin: '0px 0px -10% 0px',
+      }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const handleCTAClick = () => {
     if (IS_LIVE) {
@@ -21,8 +46,8 @@ export default function Pricing() {
 
   return (
     <section id="pricing" className="relative py-20 lg:py-28 bg-gray-50 overflow-hidden">
-      {/* Full-width signal line (viewport width), triggered by card visibility */}
-      {isVisible && (
+      {/* Full-width signal line (viewport width), triggered later */}
+      {runSignal && (
         <div className="pointer-events-none absolute inset-0 overflow-visible">
           <div className="pricing-signal-track">
             <div className="pricing-signal-line" />
@@ -33,7 +58,7 @@ export default function Pricing() {
       <div className="container-narrow relative">
         <div
           className={`text-center mb-12 transition-all duration-700 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            runSignal ? 'opacity-100 translate-y-0' : 'opacity-100 translate-y-0'
           }`}
         >
           <h2 className="text-3xl lg:text-4xl font-semibold text-brand-900 tracking-tight">
@@ -49,17 +74,16 @@ export default function Pricing() {
             ref={cardRef}
             className={`relative bg-white rounded-2xl border border-neutral-200 p-8 lg:p-10
               shadow-xl shadow-brand-900/5 transition-all duration-700 delay-150
-              ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-8 scale-95'}
+              ${runSignal ? 'opacity-100 translate-y-0 scale-100' : 'opacity-100 translate-y-0 scale-100'}
             `}
           >
             {/* Pulse anchored to the pricing card */}
-            {isVisible && (
+            {runSignal && (
               <div className="pointer-events-none absolute inset-0">
                 <div className="pricing-signal-pulse" />
               </div>
             )}
 
-            {/* Price */}
             <div className="text-center">
               <span className="text-sm font-medium text-neutral-500 uppercase tracking-wider">
                 One-time purchase
@@ -74,7 +98,6 @@ export default function Pricing() {
               </p>
             </div>
 
-            {/* Features */}
             <ul className="mt-8 space-y-4">
               {features.map((feature) => (
                 <li key={feature} className="flex items-center gap-3">
@@ -94,12 +117,10 @@ export default function Pricing() {
               ))}
             </ul>
 
-            {/* CTA */}
             <button onClick={handleCTAClick} className="mt-10 w-full btn-primary">
               {IS_LIVE ? `Buy for ${PRICE}` : 'Join waitlist'}
             </button>
 
-            {/* Trust line */}
             <p className="mt-6 text-center text-sm text-neutral-500">
               No subscriptions. No tracking.
             </p>
