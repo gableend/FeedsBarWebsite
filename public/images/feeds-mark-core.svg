@@ -1,7 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1024 1024">
-  <!-- Generator: Adobe Illustrator 30.0.0, SVG Export Plug-In . SVG Version: 2.1.1 Build 123)  -->
-  <rect x="140" y="464" width="720" height="96" rx="48" ry="48" fill="#e9ebef"/>
-  <circle cx="389" cy="512" r="48" fill="#4a7dff"/>
-  <path d="M316,456.03c17.1-24.3,44.33-40.03,75-40.03s57.9,15.72,75,40.03" fill="none" opacity=".6" stroke="#4a7dff" stroke-linecap="round" stroke-miterlimit="10" stroke-width="4"/>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 148">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #4a7dff;
+      }
+
+      .cls-2 {
+        fill: #e9ebef;
+      }
+
+      .cls-3 {
+        fill: none;
+        isolation: isolate;
+        opacity: .6;
+        stroke: #4a7dff;
+        stroke-linecap: round;
+        stroke-miterlimit: 10;
+        stroke-width: 8px;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <path class="cls-2" d="M48,52h624c26.51,0,48,21.49,48,48h0c0,26.51-21.49,48-48,48H48C21.49,148,0,126.51,0,100h0c0-26.51,21.49-48,48-48Z"/>
+    <circle class="cls-1" cx="249" cy="100" r="48"/>
+    <path class="cls-3" d="M176,44.03c17.1-24.3,44.33-40.03,75-40.03s57.9,15.72,75,40.03"/>
+  </g>
 </svg>
