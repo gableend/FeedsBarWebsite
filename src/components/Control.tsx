@@ -10,29 +10,32 @@ export default function Control() {
       ref={sectionRef}
     >
       <div className="container-wide">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Visual (left) */}
           <div
-            className={`transition-all duration-700 ${
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            className={`transition-all duration-700 lg:-mt-2 ${
+              isVisible
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-8"
             }`}
             style={{ transitionDelay: "100ms" }}
           >
-            <div className="relative overflow-hidden rounded-3xl">
-  <img
-    src="/images/control.png"
-    alt="FeedsBar controls"
-    className="w-full h-auto"
-    loading="lazy"
-  />
-</div>
-
+            <div className="relative rounded-3xl overflow-hidden shadow-sm">
+              <img
+                src="/images/control.png"
+                alt="FeedsBar controls"
+                className="w-full h-auto"
+                loading="lazy"
+              />
+            </div>
           </div>
 
           {/* Copy (right) */}
           <div
             className={`transition-all duration-700 ${
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+              isVisible
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-8"
             }`}
             style={{ transitionDelay: "200ms" }}
           >
@@ -53,21 +56,29 @@ export default function Control() {
               <li className="flex items-start gap-3">
                 <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-brand-900/40" />
                 <span>
-                  <span className="font-semibold text-brand-900">Placement:</span>{" "}
+                  <span className="font-semibold text-brand-900">
+                    Placement:
+                  </span>{" "}
                   choose your monitor and position
                 </span>
               </li>
+
               <li className="flex items-start gap-3">
                 <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-brand-900/40" />
                 <span>
-                  <span className="font-semibold text-brand-900">Behavior:</span>{" "}
+                  <span className="font-semibold text-brand-900">
+                    Behavior:
+                  </span>{" "}
                   adjust size, scroll speed, and density
                 </span>
               </li>
+
               <li className="flex items-start gap-3">
                 <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-brand-900/40" />
                 <span>
-                  <span className="font-semibold text-brand-900">Content:</span>{" "}
+                  <span className="font-semibold text-brand-900">
+                    Content:
+                  </span>{" "}
                   enable the topics and sources that matter
                 </span>
               </li>
