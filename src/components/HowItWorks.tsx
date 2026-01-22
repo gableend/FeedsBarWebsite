@@ -5,7 +5,7 @@ const steps = [
     number: '01',
     title: 'Choose your topics',
     description:
-      'Pick from curated topic feeds designed to surface what matters most. News, tech, finance, science, and more.',
+      'Pick from curated topic feeds designed to surface what matters most. News, tech, finance, science, and more. Nothing noisy. Nothing irrelevant.',
     icon: (
       <svg
         width="24"
@@ -26,7 +26,7 @@ const steps = [
     number: '02',
     title: 'Let FeedsBar run quietly',
     description:
-      'FeedsBar sits discreetly on your desktop, above the Dock or below the menu bar depending on your preference. It updates continuously in the background. No notifications. No interruptions.',
+      'FeedsBar sits discreetly on your desktop, above the Dock or below the menu bar. It updates continuously in the background. No notifications. No interruptions.',
     icon: (
       <svg
         width="24"
@@ -49,7 +49,7 @@ const steps = [
     number: '03',
     title: 'Stay informed at a glance',
     description:
-      "Glance at your Orbs to see what’s moving right now. Click a headline to open the full story in your browser when you want more detail.",
+      "Glance at your Orbs to see what’s moving right now. Click a headline to open the full story in your browser. Go deeper only when you want to.",
     icon: (
       <svg
         width="24"
