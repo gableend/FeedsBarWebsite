@@ -45,7 +45,7 @@ export default function NotifyForm() {
             Join the waitlist
           </h2>
           <p className="mt-4 text-neutral-300">
-            We'll send you one email when FeedBar is ready. No spam, no newsletters.
+            We'll send you one email when FeedsBar is ready. No spam, no newsletters.
           </p>
 
           {status === 'success' ? (
