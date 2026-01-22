@@ -8,8 +8,7 @@ export default function Hero() {
           </h1>
 
           <p className="mt-6 text-lg text-brand-700 max-w-2xl">
-            FeedsBar brings high-signal headlines and topics to your Mac desktop,
-            quietly, continuously, and without subscriptions.
+            FeedsBar brings high-signal headlines to your Mac desktop. Quietly. Continuously.
           </p>
 
           {/* Pills */}
@@ -21,7 +20,7 @@ export default function Hero() {
               Curated, high-quality sources
             </span>
             <span className="inline-flex items-center rounded-full border border-brand-200 bg-white px-4 py-2 text-sm text-brand-700">
-              Topic Orbs with rotating keywords
+              Topic Orbs that reflect what’s moving
             </span>
           </div>
 
