@@ -18,22 +18,22 @@ const ORBS: Orb[] = [
 function OrbsInlineSVG() {
   // --- LAYOUT MATH ---
   const cardW = 270;
-  
+
   // INCREASED HEIGHT: Was 132, now 160 to prevent text clipping.
-  const cardH = 160; 
-  
+  const cardH = 160;
+
   const gapX = 44;
   const gapY = 32;
   const sidePad = 44;
   const topPad = 42;
 
   // Width: (3 cards * 270) + (2 gaps * 44) + (2 side pads * 44) = 986
-  const W = 986; 
-  
+  const W = 986;
+
   // Height: topPad + (2 rows * cardH) + (1 gapY) + bottomPad
   // 42 + 320 + 32 + 42 = 436
   const H = 436;
-  
+
   const outerR = 36;
 
   const positions = [
@@ -94,7 +94,6 @@ function OrbsInlineSVG() {
 
       {/* Main Container */}
       <g filter="url(#softShadow)">
-        
         {/* Single Black Background Rect */}
         <rect x="0" y="0" width={W} height={H} rx={outerR} fill="url(#blackGlow)" />
 
@@ -111,9 +110,8 @@ function OrbsInlineSVG() {
           const titleY = y + 42;
 
           const wordX = x + 78;
-          
+
           // Adjusted Y positions for taller card (160px height)
-          // Previous: 78, 104, 130
           // New: 80, 110, 140 (leaves 20px bottom padding)
           const wordY1 = y + 80;
           const wordY2 = y + 110;
@@ -121,14 +119,7 @@ function OrbsInlineSVG() {
 
           return (
             <g key={orb.label} className="orbCard">
-              <rect
-                x={x}
-                y={y}
-                width={cardW}
-                height={cardH}
-                rx={24}
-                fill="url(#cardFill)"
-              />
+              <rect x={x} y={y} width={cardW} height={cardH} rx={24} fill="url(#cardFill)" />
               <rect
                 x={x}
                 y={y}
@@ -146,13 +137,7 @@ function OrbsInlineSVG() {
               <circle cx={orbCx} cy={orbCy} r="22" fill="none" className="orbStroke2" strokeWidth="1" />
 
               {/* Label */}
-              <text
-                x={titleX}
-                y={titleY}
-                fill="rgba(255,255,255,0.55)"
-                fontSize="11"
-                className="label"
-              >
+              <text x={titleX} y={titleY} fill="rgba(255,255,255,0.55)" fontSize="11" className="label">
                 {orb.label}
               </text>
 
@@ -187,12 +172,11 @@ export default function Orbs() {
               isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
             }`}
           >
-            <h2 className="text-3xl lg:text-4xl font-semibold text-brand-900 tracking-tight">
-              Topic Orbs
-            </h2>
+            <h2 className="text-3xl lg:text-4xl font-semibold text-brand-900 tracking-tight">Topic Orbs</h2>
 
             <p className="mt-6 text-lg text-neutral-600 leading-relaxed">
-              Each topic has its own Orb. It rotates through three keywords so you can feel what is moving, without opening anything.
+              Each topic has its own Orb. It rotates through three keywords so you can feel what is moving, without opening
+              anything.
             </p>
 
             <div className="mt-8 space-y-4">
@@ -227,13 +211,13 @@ export default function Orbs() {
 
           {/* Visual */}
           <div
-            className={`order-1 lg:order-2 transition-all duration-700 delay-150 ${
-            isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"
+            className={`order-1 lg:order-2 transition-all duration-700 delay-150 lg:-mt-2 ${
+              isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
             }`}
           >
-          <div className="rounded-3xl overflow-hidden shadow-sm">
-          <OrbsInlineSVG />
-          </div>
+            <div className="rounded-3xl overflow-hidden shadow-sm">
+              <OrbsInlineSVG />
+            </div>
           </div>
         </div>
       </div>
