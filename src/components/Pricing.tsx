@@ -9,26 +9,35 @@ const features = [
 
 export default function Pricing() {
   const cardRef = useRef<HTMLDivElement | null>(null);
+
   const [runSignal, setRunSignal] = useState(false);
+  const [signalEndPx, setSignalEndPx] = useState<number>(Math.round(window.innerWidth * 0.7));
 
   useEffect(() => {
     const el = cardRef.current;
     if (!el) return;
 
-    // Fire later: when the card is clearly on screen, not just touching.
-    // - threshold 0.55 means ~55% of the card must be visible.
-    // - rootMargin nudges the "active zone" downward slightly.
     const observer = new IntersectionObserver(
       (entries) => {
         const entry = entries[0];
-        if (entry?.isIntersecting) {
-          setRunSignal(true);
-          observer.disconnect(); // run once
-        }
+        if (!entry?.isIntersecting) return;
+
+        // Calculate where the signal should stop:
+        // right edge of the card + small offset (so it feels like it "clears" the card)
+        const rect = el.getBoundingClientRect();
+        const desired = rect.right + 16;
+
+        // Clamp so the head stays visible and doesn't end off-screen
+        const clamped = Math.max(80, Math.min(desired, window.innerWidth - 24));
+
+        setSignalEndPx(Math.round(clamped));
+        setRunSignal(true);
+        observer.disconnect(); // run once
       },
       {
-        threshold: 0.55,
-        rootMargin: '0px 0px -10% 0px',
+        // Later trigger. Increase to 0.65 if you still feel it’s early.
+        threshold: 0.6,
+        rootMargin: '0px 0px -15% 0px',
       }
     );
 
@@ -46,21 +55,22 @@ export default function Pricing() {
 
   return (
     <section id="pricing" className="relative py-20 lg:py-28 bg-gray-50 overflow-hidden">
-      {/* Full-width signal line (viewport width), triggered later */}
+      {/* Full-width signal layer */}
       {runSignal && (
-        <div className="pointer-events-none absolute inset-0 overflow-visible">
+        <div
+          className="pointer-events-none absolute inset-0 overflow-visible"
+          style={{ ['--pricing-signal-end' as any]: `${signalEndPx}px` }}
+        >
           <div className="pricing-signal-track">
             <div className="pricing-signal-line" />
+            <div className="pricing-signal-head" />
+            <div className="pricing-signal-pulse" />
           </div>
         </div>
       )}
 
       <div className="container-narrow relative">
-        <div
-          className={`text-center mb-12 transition-all duration-700 ${
-            runSignal ? 'opacity-100 translate-y-0' : 'opacity-100 translate-y-0'
-          }`}
-        >
+        <div className="text-center mb-12 transition-all duration-700 opacity-100 translate-y-0">
           <h2 className="text-3xl lg:text-4xl font-semibold text-brand-900 tracking-tight">
             Simple pricing
           </h2>
@@ -72,18 +82,9 @@ export default function Pricing() {
         <div className="max-w-md mx-auto">
           <div
             ref={cardRef}
-            className={`relative bg-white rounded-2xl border border-neutral-200 p-8 lg:p-10
-              shadow-xl shadow-brand-900/5 transition-all duration-700 delay-150
-              ${runSignal ? 'opacity-100 translate-y-0 scale-100' : 'opacity-100 translate-y-0 scale-100'}
-            `}
+            className="relative bg-white rounded-2xl border border-neutral-200 p-8 lg:p-10
+              shadow-xl shadow-brand-900/5 transition-all duration-700"
           >
-            {/* Pulse anchored to the pricing card */}
-            {runSignal && (
-              <div className="pointer-events-none absolute inset-0">
-                <div className="pricing-signal-pulse" />
-              </div>
-            )}
-
             <div className="text-center">
               <span className="text-sm font-medium text-neutral-500 uppercase tracking-wider">
                 One-time purchase
