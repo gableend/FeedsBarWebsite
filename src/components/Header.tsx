@@ -5,23 +5,17 @@ export default function Header() {
       <div className="container-wide flex h-16 items-center justify-between">
         {/* Brand */}
         <a href="#top" className="flex items-center gap-3">
-          {/* Slightly bolder mark treatment without changing the SVG */}
-          <span className="flex items-center justify-center rounded-full bg-white/10 ring-1 ring-white/15 shadow-sm">
-            <span className="px-2.5 py-2">
-              <img
-                src="/images/feeds-mark-core.svg"
-                alt="FeedBar"
-                className="h-7 w-auto md:h-8"
-              />
-            </span>
-          </span>
-
+          <img
+            src="/images/feeds-mark-core.svg"
+            alt="FeedBar"
+            className="h-7 w-auto md:h-8"
+          />
           <span className="text-sm font-semibold tracking-tight text-white md:text-base">
             FeedBar
           </span>
         </a>
 
-        {/* Right cluster: nav + CTA kept together */}
+        {/* Right cluster */}
         <div className="flex items-center gap-4 md:gap-6">
           <nav className="hidden items-center gap-5 md:flex">
             <a
@@ -38,7 +32,10 @@ export default function Header() {
             </a>
           </nav>
 
-          <a href="#notify" className="btn-primary">
+          <a
+            href="#notify"
+            className="rounded-lg bg-white/10 px-4 py-2 text-sm font-medium text-white hover:bg-white/15 transition-colors"
+          >
             Join waitlist
           </a>
         </div>
