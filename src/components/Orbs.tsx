@@ -178,7 +178,7 @@ export default function Orbs() {
   const { ref: sectionRef, isVisible } = useScrollAnimation<HTMLElement>();
 
   return (
-    <section id="orbs" className="py-20 lg:py-28" ref={sectionRef}>
+    <section id="orbs" className="pt-20 pb-8 lg:pt-28 lg:pb-12" ref={sectionRef}>
       <div className="container-wide">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Copy */}
