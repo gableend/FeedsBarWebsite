@@ -4,7 +4,11 @@ export default function Control() {
   const { ref: sectionRef, isVisible } = useScrollAnimation<HTMLElement>();
 
   return (
-      <section id="control" className="pt-12 pb-20 lg:pt-16 lg:pb-28">
+    <section
+      id="control"
+      className="pt-12 pb-20 lg:pt-16 lg:pb-28"
+      ref={sectionRef}
+    >
       <div className="container-wide">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
           {/* Visual (left) */}
@@ -48,27 +52,21 @@ export default function Control() {
               <li className="flex items-start gap-3">
                 <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-brand-900/40" />
                 <span>
-                  <span className="font-semibold text-brand-900">
-                    Placement:
-                  </span>{" "}
+                  <span className="font-semibold text-brand-900">Placement:</span>{" "}
                   choose your monitor and position
                 </span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-brand-900/40" />
                 <span>
-                  <span className="font-semibold text-brand-900">
-                    Behavior:
-                  </span>{" "}
+                  <span className="font-semibold text-brand-900">Behavior:</span>{" "}
                   adjust size, scroll speed, and density
                 </span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-brand-900/40" />
                 <span>
-                  <span className="font-semibold text-brand-900">
-                    Content:
-                  </span>{" "}
+                  <span className="font-semibold text-brand-900">Content:</span>{" "}
                   enable the topics and sources that matter
                 </span>
               </li>
