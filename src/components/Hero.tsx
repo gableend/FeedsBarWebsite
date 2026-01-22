@@ -54,7 +54,7 @@ export default function Hero() {
                 className="fade-in-up inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white/60 px-3 py-1.5 text-sm text-neutral-700 backdrop-blur"
                 style={{ animationDelay: `${0.2 + index * 0.1}s` }}
               >
-                <span className="h-1.5 w-1.5 rounded-full bg-neutral-400" />
+                //<span className="h-1.5 w-1.5 rounded-full bg-neutral-400" />
                 <span className="whitespace-nowrap">{pill}</span>
               </div>
             ))}
