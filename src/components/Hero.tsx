@@ -7,9 +7,10 @@ export default function Hero() {
             Stay informed without being interrupted.
           </h1>
 
-          <p className="mt-4 max-w-2xl text-lg text-neutral-700">
-            FeedsBar brings high-signal headlines to your Mac desktop. Quietly. Continuously.
-          </p>
+          <p className="mt-4 max-w-none lg:max-w-4xl text-lg text-neutral-700">
+  FeedsBar brings high-signal headlines to your Mac desktop. Quietly. Continuously.
+</p>
+
 
           {/* Pills */}
           <div className="mt-8 flex flex-wrap gap-3">
