@@ -25,12 +25,17 @@ export default function Pricing() {
         // Calculate where the signal should stop:
         // right edge of the card + small offset (so it feels like it "clears" the card)
         const rect = el.getBoundingClientRect();
-        const desired = rect.right + 16;
+        const vw = window.innerWidth;
+const rightGap = Math.max(0, vw - rect.right);
 
-        // Clamp so the head stays visible and doesn't end off-screen
-        const clamped = Math.max(80, Math.min(desired, window.innerWidth - 24));
+// Land in the middle of the whitespace to the right of the card
+const desired = rect.right + rightGap * 0.5;
 
-        setSignalEndPx(Math.round(clamped));
+// Clamp so the head stays visible
+const clamped = Math.max(80, Math.min(desired, vw - 24));
+
+setSignalEndPx(Math.round(clamped));
+
         setRunSignal(true);
         observer.disconnect(); // run once
       },
