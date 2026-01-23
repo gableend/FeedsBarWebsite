@@ -4,8 +4,9 @@ export default function Hero() {
       <div className="container-wide">
         <div className="max-w-4xl">
           <h1 className="text-5xl sm:text-6xl font-bold tracking-tight text-brand-900">
-            Stay informed without being interrupted.
-          </h1>
+  <span className="block">Stay informed without</span>
+  <span className="block">being interrupted.</span>
+</h1>
 
           <p className="mt-4 max-w-none lg:max-w-4xl text-lg text-neutral-700">
   FeedsBar brings high-signal headlines to your Mac desktop. Quietly. Continuously.
