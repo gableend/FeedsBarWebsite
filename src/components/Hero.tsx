@@ -2,29 +2,28 @@ export default function Hero() {
   return (
     <section className="pt-28 lg:pt-32">
       <div className="container-wide">
-        <div className="max-w-3xl">
+        <div className="max-w-4xl">
           <h1 className="text-5xl sm:text-6xl font-bold tracking-tight text-brand-900">
             Stay informed without being interrupted.
           </h1>
 
-        <p className="mt-4 max-w-xl text-lg text-neutral-700">
-          FeedsBar brings high-signal headlines to your Mac desktop. Quietly. Continuously.
-        </p>
+          <p className="mt-4 max-w-2xl text-lg text-neutral-700">
+            FeedsBar brings high-signal headlines to your Mac desktop. Quietly. Continuously.
+          </p>
 
-{/* Pills */}
-<div className="mt-7 -mx-1 overflow-x-auto">
-  <div className="flex w-max gap-3 px-1 pr-4 pb-1">
-    <span className="inline-flex shrink-0 items-center rounded-full border border-brand-200 bg-white px-4 py-2 text-sm text-brand-700">
-      Ambient awareness, not alerts
-    </span>
-    <span className="inline-flex shrink-0 items-center rounded-full border border-brand-200 bg-white px-4 py-2 text-sm text-brand-700">
-      Curated, high-quality sources
-    </span>
-    <span className="inline-flex shrink-0 items-center rounded-full border border-brand-200 bg-white px-4 py-2 text-sm text-brand-700">
-      Topic Orbs that reflect what’s moving
-    </span>
-  </div>
-</div>
+          {/* Pills */}
+          <div className="mt-8 flex flex-wrap gap-3">
+            <span className="inline-flex items-center rounded-full border border-brand-200 bg-white px-4 py-2 text-sm text-brand-700">
+              Ambient awareness, not alerts
+            </span>
+            <span className="inline-flex items-center rounded-full border border-brand-200 bg-white px-4 py-2 text-sm text-brand-700">
+              Curated, high-quality sources
+            </span>
+            <span className="inline-flex items-center rounded-full border border-brand-200 bg-white px-4 py-2 text-sm text-brand-700">
+              Topic Orbs that reflect what’s moving
+            </span>
+          </div>
+
           {/* CTAs */}
           <div className="mt-10 flex items-center gap-6">
             <a href="#notify" className="btn-primary">
@@ -55,7 +54,6 @@ export default function Hero() {
               <source src="/videos/FeedsBarv3.mp4" type="video/mp4" />
             </video>
 
-            {/* No-JS fallback */}
             <noscript>
               <img
                 src="/images/FeedsBarv3.png"
