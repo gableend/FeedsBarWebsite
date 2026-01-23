@@ -3,15 +3,14 @@ export default function Hero() {
     <section className="pt-28 lg:pt-32">
       <div className="container-wide">
         <div className="max-w-4xl">
-          <h1 className="text-5xl sm:text-6xl font-bold tracking-tight text-brand-900">
-  <span className="block">Stay informed without</span>
-  <span className="block">being interrupted.</span>
-</h1>
+          <h1 className="text-5xl sm:text-6xl font-bold tracking-tight leading-[1.05] text-brand-900">
+            <span className="block">Stay informed without</span>
+            <span className="block">being interrupted.</span>
+        </h1>
 
-          <p className="mt-4 max-w-none lg:max-w-4xl text-lg text-neutral-700">
-  FeedsBar brings high-signal headlines to your Mac desktop. Quietly. Continuously.
-</p>
-
+        <p className="mt-4 max-w-none lg:max-w-4xl text-lg text-neutral-700">
+          FeedsBar brings high-signal headlines to your Mac desktop. Quietly. Continuously.
+        </p>
 
           {/* Pills */}
           <div className="mt-8 flex flex-wrap gap-3">
