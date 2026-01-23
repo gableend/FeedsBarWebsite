@@ -215,7 +215,7 @@ export default function Orbs() {
               isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
             }`}
           >
-            <div className="rounded-3xl overflow-hidden shadow-sm">
+            <div className="relative rounded-3xl overflow-hidden shadow-sm">
               <OrbsInlineSVG />
             </div>
           </div>
