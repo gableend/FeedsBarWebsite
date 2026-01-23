@@ -20,13 +20,13 @@ export default function Control() {
             }`}
             style={{ transitionDelay: "100ms" }}
           >
-            <div className="relative rounded-3xl overflow-hidden shadow-sm">
-              <img
-                src="/images/control.png"
-                alt="FeedsBar controls"
-                className="w-full h-auto"
-                loading="lazy"
-              />
+            <div className="relative rounded-3xl overflow-hidden">
+            <img
+              src="/images/control.png"
+              alt="FeedsBar controls"
+              className="block w-full h-auto"
+              loading="lazy"
+            />
             </div>
           </div>
 
