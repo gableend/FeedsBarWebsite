@@ -33,7 +33,8 @@ export default function NotifyForm() {
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
-        console.error('Buttondown API error:', errorData);
+        console.error('Buttondown API error:', response.status, errorData);
+        console.error('Request body:', { email_address: email, tags: 'feedsbar-waitlist' });
         throw new Error('Failed to subscribe');
       }
 
