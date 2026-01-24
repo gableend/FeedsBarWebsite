@@ -18,10 +18,6 @@ export default function NotifyForm() {
 
     setStatus('loading');
 
-    // Debug: Check if API key is loaded
-    console.log('API Key present:', !!BUTTONDOWN_API_KEY);
-    console.log('API Key prefix:', BUTTONDOWN_API_KEY?.substring(0, 4));
-
     try {
       const response = await fetch('https://api.buttondown.email/v1/subscribers', {
         method: 'POST',
@@ -36,9 +32,6 @@ export default function NotifyForm() {
       });
 
       if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        console.error('Buttondown API error:', response.status, errorData);
-        console.error('Request body:', { email_address: email, tags: 'feedsbar-waitlist' });
         throw new Error('Failed to subscribe');
       }
 
