@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react';
-import { IS_LIVE, NOTIFY_API_ENDPOINT } from '../config';
+import { IS_LIVE, BUTTONDOWN_API_KEY } from '../config';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 
 export default function NotifyForm() {
@@ -19,17 +19,22 @@ export default function NotifyForm() {
     setStatus('loading');
 
     try {
-      // Placeholder: In production, this would POST to the actual endpoint
-      // await fetch(NOTIFY_API_ENDPOINT, {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({ email }),
-      // });
+      const response = await fetch('https://api.buttondown.email/v1/subscribers', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Token ${BUTTONDOWN_API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          tags: ['feedsbar-waitlist'],
+        }),
+      });
 
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 800));
+      if (!response.ok) {
+        throw new Error('Failed to subscribe');
+      }
 
-      console.log('Email submitted:', email, 'to endpoint:', NOTIFY_API_ENDPOINT);
       setStatus('success');
       setEmail('');
     } catch {

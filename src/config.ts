@@ -10,7 +10,7 @@ export const PADDLE_CHECKOUT_URL = 'https://checkout.paddle.com/checkout/custom/
 export const PRICE = '€24.99';
 
 // API endpoints
-export const NOTIFY_API_ENDPOINT = '/api/notify'; // Placeholder endpoint
+export const BUTTONDOWN_API_KEY = import.meta.env.VITE_BUTTONDOWN_API_KEY || '';
 
 // Contact
 export const CONTACT_EMAIL = 'hello@feeds.bar';
