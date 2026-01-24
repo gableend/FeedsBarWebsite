@@ -31,7 +31,7 @@ export default function NotifyForm() {
         },
         body: JSON.stringify({
           email_address: email,
-          tags: 'feedsbar-waitlist',
+          tags: ['feedsbar-waitlist'],
         }),
       });
 
