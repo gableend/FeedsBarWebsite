@@ -26,12 +26,14 @@ export default function NotifyForm() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          email,
-          tags: ['feedsbar-waitlist'],
+          email_address: email,
+          tags: 'feedsbar-waitlist',
         }),
       });
 
       if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        console.error('Buttondown API error:', errorData);
         throw new Error('Failed to subscribe');
       }
 
